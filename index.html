@@ -1,0 +1,2720 @@
+<!DOCTYPE html>
+<html lang="es" class="dark overflow-x-hidden w-full max-w-[100vw] bg-[#050505]">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HAL-Nexus | Plataforma de Telemetría y Diagnóstico de Hardware 3D — Kevin Alexis Bahamonde Cárdenas</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body class="overflow-x-hidden w-full max-w-[100vw] bg-[#050505] text-zinc-100 antialiased selection:bg-white/20 selection:text-white">
+    <!-- 1. LIENZO ESPACIAL 3D FIJO MONOLITH CARBON (#050505 + ESTRELLAS SUTILES + GLTFLoader ACESFilmic 0.82) -->
+    <div id="canvas-container" aria-hidden="true"></div>
+
+    <!-- 2. ESTRUCTURA SEMÁNTICA PRINCIPAL DE LAS 6 SECCIONES PROFESIONALES -->
+    <div id="app-shell" class="relative z-10 min-h-screen w-full max-w-[100vw] overflow-x-hidden flex flex-col">
+      <!-- BARRA SUPERIOR DE PRODUCCIÓN (AUTORÍA OFICIAL, COPIADO DE CORREO, GMAIL WEB Y MAILTO) -->
+      <div
+        id="production-top-bar"
+        class="bg-[#0c0c0e] border-b border-[#27272a] text-[11px] text-zinc-300 px-4 md:px-8 py-1.5"
+      >
+        <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+          <div class="flex flex-wrap items-center gap-2 sm:gap-3 min-w-0">
+            <span class="inline-flex items-center gap-1.5 font-semibold text-white">
+              <span id="core-status-dot" class="w-2 h-2 rounded-full bg-sky-400 glow-stable shrink-0"></span>
+              <span class="break-words">Kevin Alexis Bahamonde Cárdenas</span>
+            </span>
+            <span class="hidden md:inline text-zinc-600">•</span>
+            <span class="hidden md:inline text-zinc-400 break-words">
+              HAL-Nexus | Plataforma de Telemetría y Diagnóstico de Hardware 3D
+            </span>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-2">
+            <a
+              href="mailto:alexis.bahamonde172@gmail.com"
+              class="num-mono text-zinc-200 hover:text-white underline decoration-zinc-500/60 underline-offset-2 transition break-words"
+              title="Enviar correo por App a Kevin Alexis Bahamonde Cárdenas"
+            >
+              alexis.bahamonde172@gmail.com
+            </a>
+
+            <a
+              href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=alexis.bahamonde172@gmail.com&amp;su=%5BHAL-Nexus%5D%20Contacto%20Plataforma%203D"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="px-2.5 py-1 rounded-full bg-[#0b0b0d] hover:bg-[#18181b] border border-[#27272a] text-zinc-200 text-[10px] font-semibold transition"
+              title="Redactar correo a Kevin Alexis Bahamonde Cárdenas en Gmail Web"
+            >
+              Gmail Web ↗
+            </a>
+
+            <button
+              type="button"
+              data-copy-email="alexis.bahamonde172@gmail.com"
+              class="px-2.5 py-1 rounded-full bg-[#ffffff] hover:bg-[#e4e4e7] border border-[#ffffff] text-[10px] font-bold text-[#050505] transition cursor-pointer"
+              title="Copiar alexis.bahamonde172@gmail.com al portapapeles"
+            >
+              Copiar correo
+            </button>
+
+            <span
+              id="ws-status-badge"
+              class="hidden sm:inline-flex px-2.5 py-1 rounded-full text-[10px] font-semibold bg-[#0b0b0d] text-zinc-200 border border-[#27272a]"
+            >
+              WS: LISTO
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- HEADER Y MENÚ DE NAVEGACIÓN SUPERIOR 100% OPACO (#0c0c0e, border #27272a, z-index 999) -->
+      <header
+        id="site-header"
+        class="sticky top-0 z-[999] bg-[#0c0c0e] border-b border-[#27272a] shadow-[0_20px_40px_rgba(0,0,0,0.95)]"
+      >
+        <div class="max-w-7xl mx-auto px-4 md:px-8 h-16 flex items-center justify-between gap-3">
+          <!-- Marca HAL-Nexus -->
+          <a
+            href="#inicio"
+            data-nav-page="inicio"
+            class="flex items-center gap-2.5 group focus:outline-none min-h-[44px]"
+          >
+            <div
+              class="w-9 h-9 rounded-xl bg-[#0b0b0d] border border-[#27272a] flex items-center justify-center text-white font-bold text-sm num-mono group-hover:border-white transition shrink-0"
+            >
+              HN
+            </div>
+            <div class="min-w-0">
+              <div class="flex items-center gap-1.5">
+                <span class="text-sm sm:text-base font-bold tracking-tight text-white">
+                  HAL-Nexus
+                </span>
+                <span class="num-mono text-[10px] px-2 py-0.5 rounded-full bg-[#0b0b0d] text-zinc-200 border border-[#27272a] font-semibold">
+                  v2.5
+                </span>
+              </div>
+              <p class="text-[10px] text-zinc-400 hidden sm:block truncate">
+                Plataforma de Telemetría y Diagnóstico de Hardware 3D
+              </p>
+            </div>
+          </a>
+
+          <!-- Navegación Principal Desktop (6 Secciones + 2 Menús Dropdown 100% Opacos) -->
+          <nav aria-label="Navegación principal" class="hidden lg:flex items-center gap-1">
+            <a
+              href="#inicio"
+              data-nav-page="inicio"
+              class="nav-link-pill is-active px-3.5 py-2 text-sm font-medium"
+            >
+              Inicio
+            </a>
+
+            <!-- Dropdown 1: Servicios ▾ -->
+            <div class="relative nav-dropdown-wrapper" data-dropdown>
+              <div class="flex items-center">
+                <a
+                  href="#servicios"
+                  data-nav-page="servicios"
+                  class="nav-link-pill px-3.5 py-2 text-sm font-medium inline-flex items-center gap-1"
+                >
+                  <span>Servicios</span>
+                  <button
+                    type="button"
+                    data-dropdown-toggle
+                    aria-label="Desplegar submenú de Servicios"
+                    class="text-[11px] text-zinc-400 hover:text-white px-1 min-w-[24px] min-h-[24px] cursor-pointer"
+                  >
+                    ▾
+                  </button>
+                </a>
+              </div>
+
+              <div
+                class="nav-dropdown-panel absolute left-0 top-full pt-2 w-80 z-[999]"
+                role="menu"
+              >
+                <div class="dropdown-menu rounded-2xl p-2 bg-[#0c0c0e] border border-[#27272a] shadow-[0_20px_40px_rgba(0,0,0,0.95)] space-y-1">
+                  <div class="px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-zinc-300 border-b border-[#27272a]">
+                    Especialidades de Diagnóstico 3D
+                  </div>
+                  <a
+                    href="#servicios"
+                    data-service-jump="ARQUITECTURA"
+                    class="block px-3 py-2.5 rounded-xl bg-[#0c0c0e] hover:bg-[#18181b] transition"
+                  >
+                    <span class="text-xs font-semibold text-white block">1. Arquitectura Base &amp; CPU</span>
+                    <span class="text-[11px] text-zinc-400 num-mono break-words">placa-madre.glb · procesador.glb</span>
+                  </a>
+                  <a
+                    href="#servicios"
+                    data-service-jump="RAM"
+                    class="block px-3 py-2.5 rounded-xl bg-[#0c0c0e] hover:bg-[#18181b] transition"
+                  >
+                    <span class="text-xs font-semibold text-white block">2. Memoria RAM Dual-Channel</span>
+                    <span class="text-[11px] text-zinc-400 num-mono break-words">ram.glb · 32GB DDR4 3200MHz</span>
+                  </a>
+                  <a
+                    href="#servicios"
+                    data-service-jump="SMART"
+                    class="block px-3 py-2.5 rounded-xl bg-[#0c0c0e] hover:bg-[#18181b] transition"
+                  >
+                    <span class="text-xs font-semibold text-white block">3. Almacenamiento S.M.A.R.T.</span>
+                    <span class="text-[11px] text-zinc-400 num-mono break-words">ssd970evo.glb · ssd-corsair.glb · hdd.glb</span>
+                  </a>
+                  <a
+                    href="#servicios"
+                    data-service-jump="USB_GAMEPAD"
+                    class="block px-3 py-2.5 rounded-xl bg-[#0c0c0e] hover:bg-[#18181b] transition"
+                  >
+                    <span class="text-xs font-semibold text-white block">4. Buses USB &amp; Drift Gamepad</span>
+                    <span class="text-[11px] text-zinc-400 num-mono break-words">usbport.glb · .5.glb · krom_kloud.png</span>
+                  </a>
+                  <a
+                    href="#servicios"
+                    data-service-jump="PANTALLA"
+                    class="block px-3 py-2.5 rounded-xl bg-[#0c0c0e] hover:bg-[#18181b] transition"
+                  >
+                    <span class="text-xs font-semibold text-white block">5. Diagnóstico de Pantalla &amp; Panel</span>
+                    <span class="text-[11px] text-zinc-400 num-mono break-words">Hz Reales · Frame Time · Test de Píxeles</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <a
+              href="#laboratorio"
+              data-nav-page="laboratorio"
+              class="nav-link-pill px-3.5 py-2 text-sm font-medium"
+            >
+              Laboratorio 3D
+            </a>
+
+            <!-- Dropdown 2: Blog ▾ -->
+            <div class="relative nav-dropdown-wrapper" data-dropdown>
+              <div class="flex items-center">
+                <a
+                  href="#blog"
+                  data-nav-page="blog"
+                  class="nav-link-pill px-3.5 py-2 text-sm font-medium inline-flex items-center gap-1"
+                >
+                  <span>Blog</span>
+                  <button
+                    type="button"
+                    data-dropdown-toggle
+                    aria-label="Desplegar submenú de Blog"
+                    class="text-[11px] text-zinc-400 hover:text-white px-1 min-w-[24px] min-h-[24px] cursor-pointer"
+                  >
+                    ▾
+                  </button>
+                </a>
+              </div>
+
+              <div
+                class="nav-dropdown-panel absolute left-0 top-full pt-2 w-80 z-[999]"
+                role="menu"
+              >
+                <div class="dropdown-menu rounded-2xl p-2 bg-[#0c0c0e] border border-[#27272a] shadow-[0_20px_40px_rgba(0,0,0,0.95)] space-y-1">
+                  <div class="px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-zinc-300 border-b border-[#27272a]">
+                    Casos de Estudio Numerados
+                  </div>
+                  <a
+                    href="#blog"
+                    data-blog-case="case-1"
+                    class="block px-3 py-2.5 rounded-xl bg-[#0c0c0e] hover:bg-[#18181b] transition"
+                  >
+                    <span class="text-xs font-semibold text-white block">1. Arquitectura ATX &amp; Térmica CPU</span>
+                    <span class="text-[11px] text-zinc-400 break-words">VRM, PCIe AER y telemetría por núcleo</span>
+                  </a>
+                  <a
+                    href="#blog"
+                    data-blog-case="case-2"
+                    class="block px-3 py-2.5 rounded-xl bg-[#0c0c0e] hover:bg-[#18181b] transition"
+                  >
+                    <span class="text-xs font-semibold text-white block">2. Memoria 32GB DDR4 3200MHz</span>
+                    <span class="text-[11px] text-zinc-400 break-words">Dual-Channel 2x16GB y latencia EDAC</span>
+                  </a>
+                  <a
+                    href="#blog"
+                    data-blog-case="case-3"
+                    class="block px-3 py-2.5 rounded-xl bg-[#0c0c0e] hover:bg-[#18181b] transition"
+                  >
+                    <span class="text-xs font-semibold text-white block">3. Auditoría Forense S.M.A.R.T.</span>
+                    <span class="text-[11px] text-zinc-400 break-words">NVMe 970 EVO, Corsair MP600 y SATA</span>
+                  </a>
+                  <a
+                    href="#blog"
+                    data-blog-case="case-4"
+                    class="block px-3 py-2.5 rounded-xl bg-[#0c0c0e] hover:bg-[#18181b] transition"
+                  >
+                    <span class="text-xs font-semibold text-white block">4. VBUS USB &amp; Gamepad Krom KLOUD</span>
+                    <span class="text-[11px] text-zinc-400 break-words">Caídas &lt;4.75V y Stick Drift &gt;0.08</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <a
+              href="#nosotros"
+              data-nav-page="nosotros"
+              class="nav-link-pill px-3.5 py-2 text-sm font-medium"
+            >
+              Nosotros
+            </a>
+
+            <a
+              href="#contacto"
+              data-nav-page="contacto"
+              class="nav-link-pill px-3.5 py-2 text-sm font-medium"
+            >
+              Contacto
+            </a>
+          </nav>
+
+          <!-- Acciones Derecha Desktop + Botón Hamburguesa Móvil (Área táctil mínima 44x44px) -->
+          <div class="flex items-center gap-2">
+            <button
+              type="button"
+              data-open-modal="modal-smart-json"
+              class="hidden sm:inline-flex btn-pill-outline px-4 py-2 text-xs rounded-full"
+            >
+              <span>JSON S.M.A.R.T.</span>
+            </button>
+
+            <a
+              href="#laboratorio"
+              data-nav-page="laboratorio"
+              class="hidden md:inline-flex btn-pill-primary px-4 py-2 text-xs rounded-full bg-[#ffffff] hover:bg-[#e4e4e7] text-[#050505]"
+            >
+              <span>Inspector 3D</span>
+              <span class="pill-arrow">→</span>
+            </a>
+
+            <button
+              id="btn-mobile-menu"
+              type="button"
+              aria-label="Abrir menú de navegación móvil"
+              aria-expanded="false"
+              class="lg:hidden min-w-[44px] min-h-[44px] p-2.5 rounded-xl bg-[#0b0b0d] border border-[#27272a] text-white hover:border-white transition flex items-center justify-center cursor-pointer"
+            >
+              <svg id="icon-menu-open" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+              <svg id="icon-menu-close" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Menú Desplegable Móvil 100% Sólido y Opaco (#0c0c0e, border #27272a, z-[999]) -->
+        <div
+          id="mobile-nav-drawer"
+          class="dropdown-menu hidden lg:hidden border-t border-[#27272a] bg-[#0c0c0e] shadow-[0_20px_40px_rgba(0,0,0,0.95)] px-4 py-4 space-y-3 z-[999]"
+        >
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            <a href="#inicio" data-nav-page="inicio" class="nav-link-pill px-4 py-2.5 text-sm font-medium w-full">
+              1. Inicio
+            </a>
+            <a href="#servicios" data-nav-page="servicios" class="nav-link-pill px-4 py-2.5 text-sm font-medium w-full">
+              2. Servicios
+            </a>
+            <a href="#laboratorio" data-nav-page="laboratorio" class="nav-link-pill px-4 py-2.5 text-sm font-medium w-full">
+              3. Laboratorio 3D
+            </a>
+            <a href="#blog" data-nav-page="blog" class="nav-link-pill px-4 py-2.5 text-sm font-medium w-full">
+              4. Blog Técnico
+            </a>
+            <a href="#nosotros" data-nav-page="nosotros" class="nav-link-pill px-4 py-2.5 text-sm font-medium w-full">
+              5. Nosotros
+            </a>
+            <a href="#contacto" data-nav-page="contacto" class="nav-link-pill px-4 py-2.5 text-sm font-medium w-full">
+              6. Contacto
+            </a>
+          </div>
+
+          <div class="pt-3 border-t border-[#27272a] flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+            <button
+              type="button"
+              data-open-modal="modal-smart-json"
+              class="btn-pill-outline px-4 py-2.5 text-xs w-full sm:flex-1 rounded-full"
+            >
+              Exportar JSON S.M.A.R.T.
+            </button>
+            <a
+              href="#contacto"
+              data-nav-page="contacto"
+              class="btn-pill-primary px-4 py-2.5 text-xs w-full sm:flex-1 text-center rounded-full bg-[#ffffff] hover:bg-[#e4e4e7] text-[#050505]"
+            >
+              <span>Soporte &amp; Contacto</span>
+              <span class="pill-arrow">→</span>
+            </a>
+          </div>
+        </div>
+      </header>
+
+      <!-- CONTENIDO SEMÁNTICO PRINCIPAL (<main>) CON CERO DESBORDAMIENTO HORIZONTAL -->
+      <main id="main-content" class="flex-1 overflow-x-hidden w-full max-w-[100vw]">
+        <!-- Montura interactiva 3D única (se acopla en #hero-3d-viewport en Inicio y en #lab-3d-viewport en Laboratorio 3D) -->
+        <div id="interactive-3d-staging" class="hidden">
+          <div
+            id="interactive-3d-mount"
+            class="cursor-grab active:cursor-grabbing"
+            title="Arrastra para rotar el modelo 3D real cargado con GLTFLoader"
+          ></div>
+        </div>
+
+        <!-- =================================================================== -->
+        <!-- SECCIÓN 1: INICIO (#inicio) — MOBILE-FIRST -> TABLET -> DESKTOP      -->
+        <!-- =================================================================== -->
+        <section id="inicio" data-page-section="inicio" class="page-enter px-4 py-6 md:px-8 md:py-10 lg:py-14">
+          <div class="max-w-7xl mx-auto space-y-8 md:space-y-10">
+            <!-- Hero Responsivo: 1 col en Móvil/Tablet, 12 cols en Desktop (7 cols texto izq, 5 cols visor 3D der) -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-8 lg:gap-10 items-center">
+              <!-- Columna Izquierda (7 columnas en Desktop lg:col-span-7): Tipografía y Botones Píldora Monolith Carbon -->
+              <div class="lg:col-span-7 flex flex-col space-y-5 md:space-y-6 min-w-0">
+                <div class="inline-flex items-center gap-2 self-start px-3.5 py-1.5 rounded-full bg-[#0b0b0d] border border-[#27272a] text-zinc-200 text-[11px] font-semibold tracking-wider uppercase">
+                  <span class="w-2 h-2 rounded-full bg-white animate-pulse"></span>
+                  <span>MONOLITH CARBON · TELEMETRÍA DE HARDWARE 3D</span>
+                </div>
+
+                <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-[1.15] break-words">
+                  Diagnóstico Forense &amp;
+                  <span class="text-zinc-300">
+                    Telemetría 3D Real
+                  </span>
+                  de Bajo Brillo
+                </h1>
+
+                <p class="text-zinc-300 text-sm sm:text-base md:text-lg leading-relaxed max-w-2xl break-words">
+                  Inspecciona modelos <code class="num-mono text-white text-xs sm:text-sm">.glb</code> reales con filtrado anisotrópico máximo, verifica unidades NVMe/SATA mediante <strong class="text-white font-semibold">S.M.A.R.T.</strong>, audita memoria <strong class="text-white font-semibold">32GB DDR4 3200MHz Dual-Channel</strong> y detecta <strong class="text-white font-semibold">Stick Drift</strong> en tiempo real a 60 FPS.
+                </p>
+
+                <!-- Par de Botones Píldora (Ancho completo en móvil, en línea desde sm/md, mínimo 44x44px) -->
+                <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-1">
+                  <a
+                    href="#laboratorio"
+                    data-nav-page="laboratorio"
+                    class="btn-pill-primary w-full sm:w-auto px-6 py-3 text-sm rounded-full bg-[#ffffff] hover:bg-[#e4e4e7] text-[#050505]"
+                  >
+                    <span>EXPLORAR LABORATORIO 3D</span>
+                    <span class="pill-arrow">→</span>
+                  </a>
+
+                  <button
+                    type="button"
+                    data-open-modal="modal-smart-json"
+                    class="btn-pill-outline w-full sm:w-auto px-6 py-3 text-sm rounded-full"
+                  >
+                    <span>ESCÁNER S.M.A.R.T. JSON</span>
+                  </button>
+                </div>
+
+                <!-- Indicadores Técnicos Resumidos (1 col móvil -> 3 cols sm/md/lg) -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-3 border-t border-[#27272a]">
+                  <div class="nexus-card rounded-2xl p-3.5 bg-[#0b0b0d] border border-[#27272a]">
+                    <span class="num-mono text-lg sm:text-xl font-bold text-white block">11 .GLB</span>
+                    <span class="text-[11px] text-zinc-400 break-words">Modelos 3D reales en assets/</span>
+                  </div>
+                  <div class="nexus-card rounded-2xl p-3.5 bg-[#0b0b0d] border border-[#27272a]">
+                    <span class="num-mono text-lg sm:text-xl font-bold text-white block">32GB</span>
+                    <span class="text-[11px] text-zinc-400 break-words">DDR4 3200MHz Dual-Channel</span>
+                  </div>
+                  <div class="nexus-card rounded-2xl p-3.5 bg-[#0b0b0d] border border-[#27272a]">
+                    <span class="num-mono text-lg sm:text-xl font-bold text-white block">0.82</span>
+                    <span class="text-[11px] text-zinc-400 break-words">ACESFilmic · Anisotropía Máx</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Columna Derecha (5 columnas en Desktop lg:col-span-5): Visor 3D h-[280px] sm:h-[320px] md:h-[380px] lg:h-[460px] -->
+              <div class="lg:col-span-5 w-full min-w-0">
+                <div class="relative rounded-3xl viewport-3d-frame overflow-hidden h-[280px] sm:h-[320px] md:h-[380px] lg:h-[460px] w-full bg-[#0b0b0d] border border-[#27272a]">
+                  <!-- Contenedor de acoplamiento del canvas 3D interactivo en Inicio con touch-action: pan-y -->
+                  <div
+                    id="hero-3d-viewport"
+                    class="w-full h-full relative touch-pan-y"
+                    style="touch-action: pan-y;"
+                  ></div>
+
+                  <!-- Insignias Flotantes Discretas del Visor 3D -->
+                  <div class="absolute top-3 left-3 z-20 pointer-events-none flex flex-wrap gap-1.5">
+                    <span class="px-2.5 py-1 rounded-full bg-[#0c0c0e] border border-[#27272a] text-[10px] sm:text-[11px] font-semibold text-white num-mono">
+                      32GB DDR4
+                    </span>
+                    <span class="px-2.5 py-1 rounded-full bg-[#0c0c0e] border border-[#27272a] text-[10px] sm:text-[11px] font-semibold text-emerald-300 num-mono">
+                      NVMe S.M.A.R.T. 100%
+                    </span>
+                  </div>
+
+                  <div class="absolute top-3 right-3 z-20 pointer-events-none hidden sm:block">
+                    <span class="px-2.5 py-1 rounded-full bg-[#0c0c0e] border border-[#27272a] text-[10px] sm:text-[11px] font-semibold text-zinc-200 num-mono">
+                      Exposición 0.82
+                    </span>
+                  </div>
+
+                  <!-- Selector rápido inferior en el Hero para previsualizar placa-madre.glb u otros modelos -->
+                  <div class="absolute bottom-3 left-3 right-3 z-20 flex flex-wrap items-center justify-between gap-2 px-3 py-2 rounded-2xl bg-[#0c0c0e] border border-[#27272a]">
+                    <div class="flex items-center gap-2 min-w-0">
+                      <span class="w-2 h-2 rounded-full bg-sky-400 glow-stable shrink-0"></span>
+                      <span id="hero-active-glb-label" class="num-mono text-[11px] text-zinc-200 truncate break-words">
+                        assets/placa-madre.glb
+                      </span>
+                    </div>
+                    <div class="flex flex-wrap items-center gap-1.5">
+                      <button
+                        type="button"
+                        data-hero-model="placa-madre.glb"
+                        class="hero-glb-pill px-2.5 py-1 rounded-full text-[10px] num-mono bg-[#ffffff] text-[#050505] font-bold border border-[#ffffff] cursor-pointer"
+                      >
+                        Placa ATX
+                      </button>
+                      <button
+                        type="button"
+                        data-hero-model="procesador.glb"
+                        class="hero-glb-pill px-2.5 py-1 rounded-full text-[10px] num-mono bg-[#0b0b0d] text-zinc-200 border border-[#27272a] hover:border-white cursor-pointer"
+                      >
+                        CPU
+                      </button>
+                      <button
+                        type="button"
+                        data-hero-model="ram.glb"
+                        class="hero-glb-pill px-2.5 py-1 rounded-full text-[10px] num-mono bg-[#0b0b0d] text-zinc-200 border border-[#27272a] hover:border-white cursor-pointer"
+                      >
+                        RAM
+                      </button>
+                      <button
+                        type="button"
+                        data-inspect-glb="placa-madre.glb"
+                        class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-[#ffffff] text-[#050505] hover:bg-[#e4e4e7] border border-[#ffffff] cursor-pointer"
+                      >
+                        Abrir Lab →
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Debajo del Hero: Acordeón Desplegable + Barra de Breadcrumb y Fecha -->
+            <div class="space-y-4">
+              <details class="nexus-card rounded-2xl bg-[#0b0b0d] border border-[#27272a] group overflow-hidden">
+                <summary class="px-4 sm:px-5 py-4 flex items-center justify-between gap-4 cursor-pointer select-none min-h-[44px]">
+                  <div class="flex items-center gap-3 min-w-0">
+                    <span class="text-base shrink-0">💡</span>
+                    <span class="text-sm sm:text-base font-semibold text-white break-words">
+                      Cómo funciona el motor de telemetría 3D y diagnóstico en tiempo real
+                    </span>
+                  </div>
+                  <span class="text-xs num-mono text-zinc-300 group-open:rotate-180 transition-transform duration-200 shrink-0">
+                    ▾
+                  </span>
+                </summary>
+                <div class="px-4 sm:px-5 pb-5 pt-2 border-t border-[#27272a] text-sm text-zinc-300 leading-relaxed grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  <div class="p-4 rounded-xl bg-[#050505] border border-[#27272a]">
+                    <h3 class="text-xs font-bold uppercase tracking-wider text-white mb-1">
+                      1. Renderizado PBR Atenuado (0.82)
+                    </h3>
+                    <p class="text-xs text-zinc-300 break-words">
+                      Utiliza <code class="num-mono text-white">GLTFLoader</code> con <code class="num-mono text-white">ACESFilmicToneMapping</code> a exposición <code class="num-mono text-white">0.82</code> y anisotropía máxima en texturas para mostrar pistas de PCB y etiquetas NVMe sin reflejos quemados.
+                    </p>
+                  </div>
+                  <div class="p-4 rounded-xl bg-[#050505] border border-[#27272a]">
+                    <h3 class="text-xs font-bold uppercase tracking-wider text-white mb-1">
+                      2. S.M.A.R.T., VBUS &amp; Dual-Channel
+                    </h3>
+                    <p class="text-xs text-zinc-300 break-words">
+                      Sincroniza vía WebSocket (<code class="num-mono text-white">Socket.IO</code> + MariaDB) temperaturas por núcleo, módulos <strong class="text-white">32GB DDR4 3200MHz</strong>, salud NAND NVMe y caídas eléctricas USB VBUS &lt; 4.75V.
+                    </p>
+                  </div>
+                  <div class="p-4 rounded-xl bg-[#050505] border border-[#27272a] md:col-span-2 lg:col-span-1">
+                    <h3 class="text-xs font-bold uppercase tracking-wider text-white mb-1">
+                      3. Gamepad API &amp; Stick Drift
+                    </h3>
+                    <p class="text-xs text-zinc-300 break-words">
+                      Lee en vivo <code class="num-mono text-white">navigator.getGamepads()</code> sobre el mando inalámbrico <strong class="text-white">Krom KLOUD (NXKROMKLD)</strong>, alertando desviaciones en reposo mayores a <code class="num-mono">0.08</code>.
+                    </p>
+                  </div>
+                </div>
+              </details>
+
+              <!-- Barra de Breadcrumb + Fecha de Actualización -->
+              <div class="flex flex-wrap items-center justify-between gap-2 px-4 py-3 rounded-2xl bg-[#0b0b0d] border border-[#27272a] text-xs text-zinc-400">
+                <nav aria-label="Breadcrumb" class="flex items-center gap-2">
+                  <a href="#inicio" data-nav-page="inicio" class="text-zinc-300 hover:text-white transition">Home</a>
+                  <span>•</span>
+                  <a href="#servicios" data-nav-page="servicios" class="text-zinc-300 hover:text-white transition">Servicios</a>
+                  <span>•</span>
+                  <span class="text-white font-semibold">HAL-Nexus</span>
+                </nav>
+                <div class="num-mono text-[11px] text-zinc-400 break-words">
+                  Actualizado: Nov 2026 · Autor: <span class="text-zinc-200">Kevin Alexis Bahamonde Cárdenas</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Carrusel Interactivo de Perfiles de Hardware -->
+            <section aria-labelledby="carousel-heading" class="nexus-card rounded-3xl bg-[#0b0b0d] border border-[#27272a] p-5 sm:p-6 md:p-8 space-y-5">
+              <div class="flex flex-wrap items-center justify-between gap-4">
+                <div class="min-w-0">
+                  <span class="text-[11px] font-bold uppercase tracking-wider text-zinc-400">
+                    Carrusel Dinámico de Subsistemas Reales
+                  </span>
+                  <h2 id="carousel-heading" class="text-xl sm:text-2xl font-bold text-white mt-0.5 break-words">
+                    Perfiles de Hardware Vinculados a <code class="num-mono text-zinc-200 text-base sm:text-lg">assets/*.glb</code>
+                  </h2>
+                </div>
+
+                <div class="flex items-center gap-2">
+                  <button
+                    type="button"
+                    id="btn-carousel-prev"
+                    aria-label="Perfil anterior"
+                    class="btn-pill-outline min-w-[44px] min-h-[44px] w-11 h-11 text-sm rounded-full"
+                  >
+                    ←
+                  </button>
+                  <span id="carousel-counter" class="num-mono text-xs text-zinc-300 px-2">
+                    01 / 05
+                  </span>
+                  <button
+                    type="button"
+                    id="btn-carousel-next"
+                    aria-label="Siguiente perfil"
+                    class="btn-pill-outline min-w-[44px] min-h-[44px] w-11 h-11 text-sm rounded-full"
+                  >
+                    →
+                  </button>
+                </div>
+              </div>
+
+              <!-- Contenedor del Slide Activo -->
+              <div id="hardware-carousel-stage" class="rounded-2xl bg-[#050505] border border-[#27272a] p-4 sm:p-6">
+                <!-- Renderizado dinámicamente desde src/main.js -->
+              </div>
+
+              <!-- Indicadores del Carrusel -->
+              <div id="hardware-carousel-dots" class="flex items-center justify-center gap-2"></div>
+            </section>
+
+            <!-- Accesos Rápidos a las 6 Secciones Conectadas (1 col móvil -> 2 cols tablet md:grid-cols-2 -> 3 cols desktop lg:grid-cols-3) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+              <article class="nexus-card rounded-2xl bg-[#0b0b0d] border border-[#27272a] p-5 flex flex-col justify-between gap-4">
+                <div>
+                  <span class="num-mono text-[11px] text-zinc-400 font-semibold">SECCIÓN 02</span>
+                  <h3 class="text-base font-bold text-white mt-1">Servicios de Diagnóstico</h3>
+                  <p class="text-xs text-zinc-400 mt-1.5 leading-relaxed break-words">
+                    Auditoría eléctrica VBUS, certificación S.M.A.R.T. NVMe y verificación Dual-Channel DDR4.
+                  </p>
+                </div>
+                <a href="#servicios" data-nav-page="servicios" class="text-xs font-semibold text-white hover:text-zinc-300 transition">
+                  Ir a Servicios →
+                </a>
+              </article>
+
+              <article class="nexus-card rounded-2xl bg-[#0b0b0d] border border-[#27272a] p-5 flex flex-col justify-between gap-4">
+                <div>
+                  <span class="num-mono text-[11px] text-zinc-400 font-semibold">SECCIÓN 03</span>
+                  <h3 class="text-base font-bold text-white mt-1">Laboratorio 3D Interactivo</h3>
+                  <p class="text-xs text-zinc-400 mt-1.5 leading-relaxed break-words">
+                    Inspecciona los 11 modelos <code class="num-mono">.glb</code> reales y la referencia <code class="num-mono">krom_kloud.png</code>.
+                  </p>
+                </div>
+                <a href="#laboratorio" data-nav-page="laboratorio" class="text-xs font-semibold text-white hover:text-zinc-300 transition">
+                  Abrir Laboratorio 3D →
+                </a>
+              </article>
+
+              <article class="nexus-card rounded-2xl bg-[#0b0b0d] border border-[#27272a] p-5 flex flex-col justify-between gap-4 md:col-span-2 lg:col-span-1">
+                <div>
+                  <span class="num-mono text-[11px] text-zinc-400 font-semibold">SECCIONES 04, 05 &amp; 06</span>
+                  <h3 class="text-base font-bold text-white mt-1">Casos de Estudio, Autoría &amp; Contacto</h3>
+                  <p class="text-xs text-zinc-400 mt-1.5 leading-relaxed break-words">
+                    4 informes técnicos numerados, perfil de Kevin Alexis Bahamonde Cárdenas y despacho dual de tickets.
+                  </p>
+                </div>
+                <div class="flex flex-wrap items-center gap-4">
+                  <a href="#blog" data-nav-page="blog" class="text-xs font-semibold text-white hover:text-zinc-300 transition">
+                    Blog →
+                  </a>
+                  <a href="#nosotros" data-nav-page="nosotros" class="text-xs font-semibold text-white hover:text-zinc-300 transition">
+                    Nosotros →
+                  </a>
+                  <a href="#contacto" data-nav-page="contacto" class="text-xs font-semibold text-white hover:text-zinc-300 transition">
+                    Contacto →
+                  </a>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <!-- =================================================================== -->
+        <!-- SECCIÓN 2: SERVICIOS (#servicios) — TABS, TARJETAS, TABLA Y ACORDEÓN -->
+        <!-- =================================================================== -->
+        <section id="servicios" data-page-section="servicios" class="hidden page-enter px-4 py-6 md:px-8 md:py-10">
+          <div class="max-w-7xl mx-auto space-y-8">
+            <!-- Breadcrumb -->
+            <div class="flex flex-wrap items-center justify-between gap-2 px-4 py-2.5 rounded-2xl bg-[#0b0b0d] border border-[#27272a] text-xs text-zinc-400">
+              <nav aria-label="Breadcrumb Servicios" class="flex items-center gap-2">
+                <a href="#inicio" data-nav-page="inicio" class="hover:text-white transition">Home</a>
+                <span>•</span>
+                <span class="text-white font-semibold">Servicios</span>
+              </nav>
+              <span class="num-mono text-[11px] break-words">5 Módulos Vinculados a assets/*.glb</span>
+            </div>
+
+            <!-- Encabezado y Pestañas (Tabs) de Filtrado -->
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+              <div class="min-w-0">
+                <span class="text-xs font-bold uppercase tracking-wider text-zinc-400">
+                  Catálogo de Ingeniería Forense
+                </span>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-white mt-1 break-words">
+                  Servicios de Diagnóstico &amp; Telemetría 3D
+                </h2>
+                <p class="text-sm text-zinc-400 mt-1 max-w-2xl break-words">
+                  Filtra por subsistema de hardware e inspecciona directamente su modelo tridimensional real en el Laboratorio 3D.
+                </p>
+              </div>
+
+              <!-- Pestañas (Tabs) en Servicios -->
+              <div id="services-tabs" class="flex flex-wrap items-center gap-2" role="tablist">
+                <button type="button" data-service-tab="ALL" class="filter-tab-btn is-active px-3.5 py-1.5 text-xs font-semibold">
+                  Todos (7)
+                </button>
+                <button type="button" data-service-tab="ARQUITECTURA" class="filter-tab-btn px-3.5 py-1.5 text-xs font-medium">
+                  Base &amp; CPU
+                </button>
+                <button type="button" data-service-tab="RAM" class="filter-tab-btn px-3.5 py-1.5 text-xs font-medium">
+                  RAM 32GB
+                </button>
+                <button type="button" data-service-tab="SMART" class="filter-tab-btn px-3.5 py-1.5 text-xs font-medium">
+                  S.M.A.R.T.
+                </button>
+                <button type="button" data-service-tab="USB_GAMEPAD" class="filter-tab-btn px-3.5 py-1.5 text-xs font-medium">
+                  USB &amp; Gamepad
+                </button>
+                <button type="button" data-service-tab="PANTALLA" class="filter-tab-btn px-3.5 py-1.5 text-xs font-medium">
+                  Diagnóstico de Pantalla &amp; Panel
+                </button>
+              </div>
+            </div>
+
+            <!-- Grilla Responsiva de Servicios Conectados a assets/*.glb (1 col móvil -> 2 cols tablet -> 3 cols desktop) -->
+            <div id="services-cards-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <!-- 1. Arquitectura Base ATX -->
+              <article data-service-category="ARQUITECTURA" class="nexus-card rounded-3xl bg-[#0b0b0d] border border-[#27272a] p-5 sm:p-6 flex flex-col justify-between gap-5">
+                <div class="space-y-3">
+                  <div class="flex items-center justify-between gap-2">
+                    <span class="px-3 py-1 rounded-full bg-[#050505] border border-[#27272a] text-zinc-200 text-[11px] font-semibold">
+                      Arquitectura ATX &amp; PCIe
+                    </span>
+                    <span class="num-mono text-[11px] text-zinc-400 break-words">placa-madre.glb</span>
+                  </div>
+                  <h3 class="text-lg font-bold text-white break-words">Diagnóstico de Placa Madre, VRM y GPUs</h3>
+                  <p class="text-sm text-zinc-300 leading-relaxed break-words">
+                    Inspección de líneas PCIe AER, cronología eléctrica de arranque, temperatura de chipset y controladores gráficos integrados/dedicados.
+                  </p>
+                </div>
+                <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 pt-3 border-t border-[#27272a]">
+                  <button type="button" data-inspect-glb="placa-madre.glb" class="btn-pill-primary px-4 py-2 text-xs flex-1 rounded-full bg-[#ffffff] hover:bg-[#e4e4e7] text-[#050505]">
+                    <span>Inspeccionar 3D</span>
+                    <span class="pill-arrow">→</span>
+                  </button>
+                  <a href="#contacto" data-ticket-preset="Arquitectura Base & Placa Madre (placa-madre.glb)" class="btn-pill-outline px-4 py-2 text-xs rounded-full">
+                    Crear Ticket
+                  </a>
+                </div>
+              </article>
+
+              <!-- 2. Procesador Multi-Core -->
+              <article data-service-category="ARQUITECTURA" class="nexus-card rounded-3xl bg-[#0b0b0d] border border-[#27272a] p-5 sm:p-6 flex flex-col justify-between gap-5">
+                <div class="space-y-3">
+                  <div class="flex items-center justify-between gap-2">
+                    <span class="px-3 py-1 rounded-full bg-[#050505] border border-[#27272a] text-zinc-200 text-[11px] font-semibold">
+                      Telemetría CPU 1500ms
+                    </span>
+                    <span class="num-mono text-[11px] text-zinc-400 break-words">procesador.glb</span>
+                  </div>
+                  <h3 class="text-lg font-bold text-white break-words">Perfilado Térmico y Frecuencias Multi-Core</h3>
+                  <p class="text-sm text-zinc-300 leading-relaxed break-words">
+                    Monitoreo bajo demanda de carga por hilo, frecuencias Base/Boost, Thermal Throttling y eventos MCE del silicio.
+                  </p>
+                </div>
+                <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 pt-3 border-t border-[#27272a]">
+                  <button type="button" data-inspect-glb="procesador.glb" class="btn-pill-primary px-4 py-2 text-xs flex-1 rounded-full bg-[#ffffff] hover:bg-[#e4e4e7] text-[#050505]">
+                    <span>Inspeccionar 3D</span>
+                    <span class="pill-arrow">→</span>
+                  </button>
+                  <a href="#contacto" data-ticket-preset="Procesador Central & Térmica (procesador.glb)" class="btn-pill-outline px-4 py-2 text-xs rounded-full">
+                    Crear Ticket
+                  </a>
+                </div>
+              </article>
+
+              <!-- 3. Memoria RAM 32GB DDR4 Dual-Channel -->
+              <article data-service-category="RAM" class="nexus-card rounded-3xl bg-[#0b0b0d] border border-[#27272a] p-5 sm:p-6 flex flex-col justify-between gap-5">
+                <div class="space-y-3">
+                  <div class="flex items-center justify-between gap-2">
+                    <span class="px-3 py-1 rounded-full bg-[#050505] border border-[#27272a] text-zinc-200 text-[11px] font-semibold">
+                      32GB DDR4 3200MHz
+                    </span>
+                    <span class="num-mono text-[11px] text-zinc-400 break-words">ram.glb</span>
+                  </div>
+                  <h3 class="text-lg font-bold text-white break-words">Auditoría Dual-Channel (2x16GB) &amp; EDAC</h3>
+                  <p class="text-sm text-zinc-300 leading-relaxed break-words">
+                    Verificación de bancos físicos DIMM/SODIMM, simetría Dual-Channel a 3200MHz (1.20V–1.35V) y detección temprana de errores de memoria.
+                  </p>
+                </div>
+                <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 pt-3 border-t border-[#27272a]">
+                  <button type="button" data-inspect-glb="ram.glb" class="btn-pill-primary px-4 py-2 text-xs flex-1 rounded-full bg-[#ffffff] hover:bg-[#e4e4e7] text-[#050505]">
+                    <span>Inspeccionar 3D</span>
+                    <span class="pill-arrow">→</span>
+                  </button>
+                  <a href="#contacto" data-ticket-preset="Memoria RAM 32GB DDR4 Dual-Channel (ram.glb)" class="btn-pill-outline px-4 py-2 text-xs rounded-full">
+                    Crear Ticket
+                  </a>
+                </div>
+              </article>
+
+              <!-- 4. Almacenamiento S.M.A.R.T. NVMe & HDD -->
+              <article data-service-category="SMART" class="nexus-card rounded-3xl bg-[#0b0b0d] border border-[#27272a] p-5 sm:p-6 flex flex-col justify-between gap-5">
+                <div class="space-y-3">
+                  <div class="flex items-center justify-between gap-2">
+                    <span class="px-3 py-1 rounded-full bg-[#050505] border border-[#27272a] text-zinc-200 text-[11px] font-semibold">
+                      Forense S.M.A.R.T.
+                    </span>
+                    <span class="num-mono text-[11px] text-zinc-400 break-words">ssd970evo · corsair · hdd</span>
+                  </div>
+                  <h3 class="text-lg font-bold text-white break-words">Salud NAND NVMe M.2 y Discos SATA</h3>
+                  <p class="text-sm text-zinc-300 leading-relaxed break-words">
+                    Lectura de desgaste porcentual, horas de encendido, apagados inseguros, errores CRC y benchmark secuencial en Samsung 970 EVO, Corsair y HDD.
+                  </p>
+                </div>
+                <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 pt-3 border-t border-[#27272a]">
+                  <button type="button" data-inspect-glb="ssd970evo.glb" class="btn-pill-primary px-4 py-2 text-xs flex-1 rounded-full bg-[#ffffff] hover:bg-[#e4e4e7] text-[#050505]">
+                    <span>Ver NVMe 3D</span>
+                    <span class="pill-arrow">→</span>
+                  </button>
+                  <button type="button" data-open-modal="modal-smart-json" class="btn-pill-outline px-4 py-2 text-xs rounded-full">
+                    Exportar JSON
+                  </button>
+                </div>
+              </article>
+
+              <!-- 5. Ensamblaje Buses USB -->
+              <article data-service-category="USB_GAMEPAD" class="nexus-card rounded-3xl bg-[#0b0b0d] border border-[#27272a] p-5 sm:p-6 flex flex-col justify-between gap-5">
+                <div class="space-y-3">
+                  <div class="flex items-center justify-between gap-2">
+                    <span class="px-3 py-1 rounded-full bg-[#050505] border border-[#27272a] text-zinc-200 text-[11px] font-semibold">
+                      Topología VBUS 5.00V
+                    </span>
+                    <span class="num-mono text-[11px] text-zinc-400 break-words">usbport · usbflash · .5.glb</span>
+                  </div>
+                  <h3 class="text-lg font-bold text-white break-words">Ensamblaje Eléctrico de Buses USB</h3>
+                  <p class="text-sm text-zinc-300 leading-relaxed break-words">
+                    Inspección de puerto raíz, conector físico, memoria flash y unidad auxiliar (<code class="num-mono text-xs">.5.glb</code>) frente a subtensión VBUS &lt; 4.75V.
+                  </p>
+                </div>
+                <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 pt-3 border-t border-[#27272a]">
+                  <button type="button" data-inspect-glb="usbport.glb" class="btn-pill-primary px-4 py-2 text-xs flex-1 rounded-full bg-[#ffffff] hover:bg-[#e4e4e7] text-[#050505]">
+                    <span>Ver Ensamblaje USB</span>
+                    <span class="pill-arrow">→</span>
+                  </button>
+                  <a href="#contacto" data-ticket-preset="Ensamblaje Buses USB & VBUS (usbport.glb / .5.glb)" class="btn-pill-outline px-4 py-2 text-xs rounded-full">
+                    Crear Ticket
+                  </a>
+                </div>
+              </article>
+
+              <!-- 6. Laboratorio Gamepad Krom KLOUD & Stick Drift -->
+              <article data-service-category="USB_GAMEPAD" class="nexus-card rounded-3xl bg-[#0b0b0d] border border-[#27272a] p-5 sm:p-6 flex flex-col justify-between gap-5">
+                <div class="space-y-3">
+                  <div class="flex items-center justify-between gap-2">
+                    <span class="px-3 py-1 rounded-full bg-[#050505] border border-[#27272a] text-zinc-200 text-[11px] font-semibold">
+                      Krom KLOUD NXKROMKLD
+                    </span>
+                    <span class="num-mono text-[11px] text-zinc-400 break-words">xbox_360...glb + png</span>
+                  </div>
+                  <h3 class="text-lg font-bold text-white break-words">Calibración HID, Polling Rate &amp; Stick Drift</h3>
+                  <p class="text-sm text-zinc-300 leading-relaxed break-words">
+                    Muestreo en tiempo real de <code class="num-mono text-xs">navigator.getGamepads()</code>, jitter de polling en ms y detección automática de deriva &gt; 0.08.
+                  </p>
+                </div>
+                <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 pt-3 border-t border-[#27272a]">
+                  <button type="button" data-inspect-glb="xbox_360_joystick_3d_scan.glb" class="btn-pill-primary px-4 py-2 text-xs flex-1 rounded-full bg-[#ffffff] hover:bg-[#e4e4e7] text-[#050505]">
+                    <span>Probar Gamepad 3D</span>
+                    <span class="pill-arrow">→</span>
+                  </button>
+                  <a href="#contacto" data-ticket-preset="Gamepad Krom KLOUD & Stick Drift (NXKROMKLD)" class="btn-pill-outline px-4 py-2 text-xs rounded-full">
+                    Crear Ticket
+                  </a>
+                </div>
+              </article>
+
+              <!-- 7. Diagnóstico de Pantalla & Panel (Hz Reales, Frame Time y Test de Píxeles) -->
+              <article data-service-category="PANTALLA" class="nexus-card rounded-3xl bg-[#0b0b0d] border border-[#27272a] p-5 sm:p-6 flex flex-col justify-between gap-5 md:col-span-2 lg:col-span-3">
+                <div class="space-y-4">
+                  <div class="flex flex-wrap items-center justify-between gap-2">
+                    <span class="px-3 py-1 rounded-full bg-[#050505] border border-[#27272a] text-sky-300 text-[11px] font-semibold">
+                      Diagnóstico de Pantalla &amp; Panel
+                    </span>
+                    <span class="num-mono text-[11px] text-zinc-400 break-words">requestAnimationFrame · Fullscreen Pixel &amp; Bleed Test</span>
+                  </div>
+                  <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-center">
+                    <div class="lg:col-span-6 space-y-2">
+                      <h3 class="text-lg font-bold text-white break-words">Diagnóstico de Pantalla &amp; Panel (Hz Reales y Test de Píxeles)</h3>
+                      <p class="text-sm text-zinc-300 leading-relaxed break-words">
+                        Mide en tiempo real la tasa de refresco efectiva (Hz) y el <strong class="text-white">Frame Time (ms)</strong> mediante deltas de <code class="num-mono text-xs text-white">requestAnimationFrame</code>, verificando resolución nativa, profundidad de color, relación de aspecto e inspección Fullscreen de píxeles muertos y fuga de luz.
+                      </p>
+                    </div>
+                    <div class="lg:col-span-6 grid grid-cols-2 sm:grid-cols-5 gap-2">
+                      <div class="p-2.5 rounded-2xl bg-[#050505] border border-[#27272a]">
+                        <span class="text-[10px] text-zinc-400 block">Hz Reales</span>
+                        <strong data-service-display-hz class="num-mono text-xs sm:text-sm font-bold text-sky-300">-- Hz</strong>
+                      </div>
+                      <div class="p-2.5 rounded-2xl bg-[#050505] border border-[#27272a]">
+                        <span class="text-[10px] text-zinc-400 block">Frame Time</span>
+                        <strong data-service-display-ft class="num-mono text-xs sm:text-sm font-bold text-emerald-300">-- ms</strong>
+                      </div>
+                      <div class="p-2.5 rounded-2xl bg-[#050505] border border-[#27272a]">
+                        <span class="text-[10px] text-zinc-400 block">Resolución</span>
+                        <strong data-service-display-res class="num-mono text-xs font-bold text-white">-- × --</strong>
+                      </div>
+                      <div class="p-2.5 rounded-2xl bg-[#050505] border border-[#27272a]">
+                        <span class="text-[10px] text-zinc-400 block">Color Depth</span>
+                        <strong data-service-display-depth class="num-mono text-xs font-bold text-white">-- bits</strong>
+                      </div>
+                      <div class="p-2.5 rounded-2xl bg-[#050505] border border-[#27272a] col-span-2 sm:col-span-1">
+                        <span class="text-[10px] text-zinc-400 block">Aspecto</span>
+                        <strong data-service-display-aspect class="num-mono text-xs font-bold text-zinc-200">--:--</strong>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-2.5 pt-3 border-t border-[#27272a]">
+                  <button type="button" data-open-pixel-test="true" class="btn-pill-primary px-5 py-2.5 text-xs flex-1 rounded-full bg-[#ffffff] hover:bg-[#e4e4e7] text-[#050505] cursor-pointer">
+                    <span>Iniciar Test de Píxeles Muertos y Fuga de Luz (Fullscreen)</span>
+                    <span class="pill-arrow">→</span>
+                  </button>
+                  <button type="button" data-jump-lab-display="true" class="btn-pill-outline px-4 py-2 text-xs rounded-full cursor-pointer">
+                    Abrir Módulo en Laboratorio 3D
+                  </button>
+                  <a href="#contacto" data-ticket-preset="Diagnóstico de Pantalla & Panel (Hz Reales & Test de Píxeles)" class="btn-pill-outline px-4 py-2 text-xs rounded-full">
+                    Crear Ticket
+                  </a>
+                </div>
+              </article>
+            </div>
+
+            <!-- Tabla Comparativa Responsiva (overflow-x-auto sin desbordamiento de página) -->
+            <div class="nexus-card rounded-3xl bg-[#0b0b0d] border border-[#27272a] p-5 sm:p-6 space-y-4 w-full overflow-hidden">
+              <div>
+                <h3 class="text-lg font-bold text-white">Matriz de Umbrales Operativos de Telemetría</h3>
+                <p class="text-xs text-zinc-400 mt-0.5">
+                  Parámetros de referencia aplicados en el motor de diagnóstico HAL-Nexus v2.5.
+                </p>
+              </div>
+
+              <div class="overflow-x-auto ag-scroll rounded-2xl border border-[#27272a] w-full">
+                <table class="w-full text-left border-collapse text-xs sm:text-sm min-w-[600px]">
+                  <thead class="bg-[#050505] text-zinc-300 uppercase text-[11px] tracking-wider">
+                    <tr>
+                      <th class="py-3 px-4 border-b border-[#27272a]">Subsistema</th>
+                      <th class="py-3 px-4 border-b border-[#27272a]">Modelo 3D Vinculado</th>
+                      <th class="py-3 px-4 border-b border-[#27272a]">Rango Nominal</th>
+                      <th class="py-3 px-4 border-b border-[#27272a]">Advertencia</th>
+                      <th class="py-3 px-4 border-b border-[#27272a]">Umbral Crítico</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-[#27272a] text-zinc-300">
+                    <tr class="hover:bg-white/5">
+                      <td class="py-3 px-4 font-semibold text-white">CPU Package &amp; VRM</td>
+                      <td class="py-3 px-4 num-mono text-zinc-200 break-words">placa-madre.glb / procesador.glb</td>
+                      <td class="py-3 px-4 num-mono text-emerald-300">35 °C – 72 °C</td>
+                      <td class="py-3 px-4 num-mono text-amber-300">73 °C – 87 °C</td>
+                      <td class="py-3 px-4 num-mono text-rose-400">≥ 88 °C / Throttle</td>
+                    </tr>
+                    <tr class="hover:bg-white/5">
+                      <td class="py-3 px-4 font-semibold text-white">Memoria RAM Dual-Channel</td>
+                      <td class="py-3 px-4 num-mono text-zinc-200 break-words">ram.glb</td>
+                      <td class="py-3 px-4 num-mono text-emerald-300">32GB @ 3200MHz (0 Err)</td>
+                      <td class="py-3 px-4 num-mono text-amber-300">Uso OS &gt; 85%</td>
+                      <td class="py-3 px-4 num-mono text-rose-400">EDAC / MCE Parity</td>
+                    </tr>
+                    <tr class="hover:bg-white/5">
+                      <td class="py-3 px-4 font-semibold text-white">Unidades NVMe / SATA</td>
+                      <td class="py-3 px-4 num-mono text-zinc-200 break-words">ssd970evo.glb / ssd-corsair.glb / hdd.glb</td>
+                      <td class="py-3 px-4 num-mono text-emerald-300">PASSED · &lt; 52 °C</td>
+                      <td class="py-3 px-4 num-mono text-amber-300">52 °C – 64 °C</td>
+                      <td class="py-3 px-4 num-mono text-rose-400">≥ 65 °C / CRC &gt; 0</td>
+                    </tr>
+                    <tr class="hover:bg-white/5">
+                      <td class="py-3 px-4 font-semibold text-white">Línea Eléctrica USB VBUS</td>
+                      <td class="py-3 px-4 num-mono text-zinc-200 break-words">usbport.glb / usbflash.glb / .5.glb</td>
+                      <td class="py-3 px-4 num-mono text-emerald-300">4.85 V – 5.15 V</td>
+                      <td class="py-3 px-4 num-mono text-amber-300">4.75 V – 4.84 V</td>
+                      <td class="py-3 px-4 num-mono text-rose-400">&lt; 4.75 V (Drop)</td>
+                    </tr>
+                    <tr class="hover:bg-white/5">
+                      <td class="py-3 px-4 font-semibold text-white">Gamepad Analógico HID</td>
+                      <td class="py-3 px-4 num-mono text-zinc-200 break-words">xbox_360_joystick_3d_scan.glb</td>
+                      <td class="py-3 px-4 num-mono text-emerald-300">Reposo ≤ 0.08</td>
+                      <td class="py-3 px-4 num-mono text-amber-300">Jitter &gt; 2.5 ms</td>
+                      <td class="py-3 px-4 num-mono text-rose-400">Stick Drift &gt; 0.08</td>
+                    </tr>
+                    <tr class="hover:bg-white/5">
+                      <td class="py-3 px-4 font-semibold text-white">Pantalla &amp; Panel (Hz Reales)</td>
+                      <td class="py-3 px-4 num-mono text-zinc-200 break-words">Canvas Fullscreen + rAF</td>
+                      <td class="py-3 px-4 num-mono text-emerald-300">60–240 Hz · Δt Estable</td>
+                      <td class="py-3 px-4 num-mono text-amber-300">Frame Drop &gt; 24 ms</td>
+                      <td class="py-3 px-4 num-mono text-rose-400">Píxeles Muertos / Bleed</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Acordeones Técnicos Frecuentes en Servicios -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <details class="nexus-card rounded-2xl bg-[#0b0b0d] border border-[#27272a] p-4 group">
+                <summary class="flex items-center justify-between gap-3 cursor-pointer font-semibold text-sm text-white min-h-[44px]">
+                  <span class="break-words">¿Por qué se aplica exposición 0.82 y anisotropía máxima en los modelos 3D?</span>
+                  <span class="text-zinc-300 group-open:rotate-180 transition-transform shrink-0">▾</span>
+                </summary>
+                <p class="text-xs text-zinc-300 mt-3 leading-relaxed border-t border-[#27272a] pt-3 break-words">
+                  El mapeo tonal <code class="num-mono text-white">ACESFilmicToneMapping</code> con exposición <code class="num-mono text-white">0.82</code> evita que las superficies metálicas y luces especulares saturen el blanco, mientras que <code class="num-mono text-white">getMaxAnisotropy()</code> conserva la nitidez de serigrafías en ángulos oblicuos a 60 FPS constantes.
+                </p>
+              </details>
+
+              <details class="nexus-card rounded-2xl bg-[#0b0b0d] border border-[#27272a] p-4 group">
+                <summary class="flex items-center justify-between gap-3 cursor-pointer font-semibold text-sm text-white min-h-[44px]">
+                  <span class="break-words">¿Cómo conectar el mando Krom KLOUD (NXKROMKLD) para lectura en vivo?</span>
+                  <span class="text-zinc-300 group-open:rotate-180 transition-transform shrink-0">▾</span>
+                </summary>
+                <p class="text-xs text-zinc-300 mt-3 leading-relaxed border-t border-[#27272a] pt-3 break-words">
+                  Conecta el receptor inalámbrico USB o cable del mando y presiona cualquier botón. El navegador activará el evento <code class="num-mono text-white">gamepadconnected</code> y visualizará los ejes LS/RS y gatillos LT/RT sobre <code class="num-mono">assets/krom_kloud.png</code> en el Laboratorio 3D.
+                </p>
+              </details>
+            </div>
+          </div>
+        </section>
+
+        <!-- =================================================================== -->
+        <!-- SECCIÓN 3: LABORATORIO 3D (#laboratorio) — LOS 11 .GLB + KROM KLOUD -->
+        <!-- =================================================================== -->
+        <section id="laboratorio" data-page-section="laboratorio" class="hidden page-enter px-4 py-6 md:px-8 md:py-10">
+          <div class="max-w-7xl mx-auto space-y-5">
+            <!-- Breadcrumb + Estado de Carga GLB -->
+            <div class="flex flex-wrap items-center justify-between gap-3 px-4 py-2.5 rounded-2xl bg-[#0b0b0d] border border-[#27272a] text-xs">
+              <nav aria-label="Breadcrumb Laboratorio" class="flex items-center gap-2 text-zinc-400">
+                <a href="#inicio" data-nav-page="inicio" class="hover:text-white transition">Home</a>
+                <span>•</span>
+                <span class="text-white font-semibold">Laboratorio 3D</span>
+                <span class="hidden sm:inline text-zinc-600">•</span>
+                <span id="db-status-text" class="hidden sm:inline text-zinc-400 break-words">
+                  Entorno: <span class="text-zinc-200 num-mono">32GB DDR4 · S.M.A.R.T. · HID</span>
+                </span>
+              </nav>
+
+              <div class="flex items-center gap-2">
+                <span
+                  id="live-telemetry-indicator"
+                  class="hidden px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-[#050505] text-white border border-[#27272a] items-center gap-1.5"
+                >
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+                  <span class="num-mono">LIVE 1500ms</span>
+                </span>
+                <span id="usb-min-vbus" class="num-mono text-[11px] font-semibold text-zinc-200 px-2.5 py-0.5 rounded-full bg-[#050505] border border-[#27272a]">
+                  VBUS 5.00V
+                </span>
+              </div>
+            </div>
+
+            <!-- Banners Dinámicos: Carga de Modelos .GLB, Errores, Stick Drift y Hot-Plug -->
+            <div
+              id="glb-loading-banner"
+              class="px-4 py-2.5 nexus-surface bg-[#0c0c0e] border border-[#27272a] rounded-2xl flex flex-wrap items-center justify-between gap-3 transition-all duration-300"
+            >
+              <div class="flex items-center gap-3 min-w-0">
+                <div class="w-3.5 h-3.5 rounded-full border-2 border-white border-t-transparent animate-spin shrink-0"></div>
+                <span id="glb-loading-text" class="text-xs font-medium text-zinc-200 break-words">
+                  Cargando modelos 3D reales desde assets/...
+                </span>
+              </div>
+              <div class="flex items-center gap-3 min-w-[140px]">
+                <div class="w-24 sm:w-28 h-1.5 bg-[#27272a] rounded-full overflow-hidden">
+                  <div
+                    id="glb-loading-bar"
+                    class="h-full bg-white transition-all duration-200"
+                    style="width: 0%"
+                  ></div>
+                </div>
+                <span id="glb-loading-count" class="num-mono text-xs text-white font-semibold">0%</span>
+              </div>
+            </div>
+
+            <div
+              id="glb-error-banner"
+              class="hidden px-4 py-3 nexus-surface bg-[#0c0c0e] border border-rose-500/60 rounded-2xl flex flex-wrap items-center justify-between gap-3"
+            >
+              <div class="min-w-0">
+                <p class="text-xs font-semibold text-rose-200">Aviso al cargar recurso 3D (.glb)</p>
+                <p id="glb-error-detail" class="text-[11px] num-mono text-rose-300/90 mt-0.5 break-words"></p>
+              </div>
+              <button
+                id="btn-retry-glb"
+                type="button"
+                class="px-3.5 py-1.5 rounded-full bg-[#ffffff] hover:bg-[#e4e4e7] text-xs font-bold text-[#050505] cursor-pointer"
+              >
+                Reintentar
+              </button>
+            </div>
+
+            <div
+              id="drift-critical-banner"
+              class="hidden px-4 py-2.5 nexus-surface bg-[#0c0c0e] border border-rose-500/60 rounded-2xl flex flex-wrap items-center justify-between gap-3"
+            >
+              <div class="flex items-center gap-2.5 min-w-0">
+                <span class="w-2.5 h-2.5 rounded-full bg-rose-500 animate-ping shrink-0"></span>
+                <span id="drift-banner-text" class="text-xs font-semibold text-rose-100 break-words">
+                  Stick Drift Detectado (Axis &gt; 0.08)
+                </span>
+              </div>
+              <button
+                id="btn-clear-drift-alert"
+                type="button"
+                class="studio-btn px-3 py-1 rounded-full text-[11px] font-semibold cursor-pointer"
+              >
+                Reset Alerta
+              </button>
+            </div>
+
+            <div
+              id="hotplug-live-banner"
+              class="hidden px-4 py-2.5 nexus-surface bg-[#0c0c0e] border border-emerald-500/40 rounded-2xl flex items-center gap-3"
+            >
+              <span id="hotplug-banner-dot" class="w-2.5 h-2.5 rounded-full bg-emerald-400 glow-ok-green shrink-0"></span>
+              <div class="min-w-0">
+                <span id="hotplug-banner-title" class="text-[10px] font-bold uppercase tracking-wider text-emerald-300 block">
+                  EVENTO HOT-PLUG DETECTADO
+                </span>
+                <span id="hotplug-banner-detail" class="text-xs text-zinc-200 break-words">
+                  Periférico sincronizado en escena 3D
+                </span>
+              </div>
+            </div>
+
+            <!-- Pestañas (Tabs) de Categorías del Laboratorio 3D -->
+            <div class="flex flex-wrap items-center justify-between gap-3">
+              <div id="scene-category-nav" class="flex flex-wrap items-center gap-1.5" role="tablist">
+                <button type="button" data-filter="ALL" class="nav-filter-btn filter-tab-btn is-active px-3.5 py-1.5 text-xs font-semibold">
+                  Todos (11 .GLB)
+                </button>
+                <button type="button" data-filter="CORE" class="nav-filter-btn filter-tab-btn px-3.5 py-1.5 text-xs font-medium">
+                  1. Base &amp; CPU
+                </button>
+                <button type="button" data-filter="RAM" class="nav-filter-btn filter-tab-btn px-3.5 py-1.5 text-xs font-medium">
+                  2. RAM 32GB
+                </button>
+                <button type="button" data-filter="NVME_SSD" class="nav-filter-btn filter-tab-btn px-3.5 py-1.5 text-xs font-medium">
+                  3. S.M.A.R.T.
+                </button>
+                <button type="button" data-filter="USB" class="nav-filter-btn filter-tab-btn px-3.5 py-1.5 text-xs font-medium">
+                  4. Buses USB
+                </button>
+                <button type="button" data-filter="GAMEPAD" class="nav-filter-btn filter-tab-btn px-3.5 py-1.5 text-xs font-medium">
+                  5. Gamepad &amp; Drift
+                </button>
+                <button type="button" data-filter="DISPLAY" class="nav-filter-btn filter-tab-btn px-3.5 py-1.5 text-xs font-medium">
+                  6. Diagnóstico de Pantalla &amp; Panel
+                </button>
+              </div>
+
+              <!-- Conmutador de Modo de Visualización 3D -->
+              <div class="flex items-center gap-1.5">
+                <button
+                  type="button"
+                  id="btn-mode-inspector"
+                  class="studio-btn-active px-3.5 py-1.5 rounded-full text-xs font-semibold cursor-pointer"
+                  title="Inspeccionar el modelo seleccionado en primer plano de alta nitidez"
+                >
+                  Modo Inspector
+                </button>
+                <button
+                  type="button"
+                  id="btn-mode-solar"
+                  class="studio-btn px-3.5 py-1.5 rounded-full text-xs font-medium cursor-pointer"
+                  title="Ver placa-madre.glb en el centro con todos los modelos .glb en órbita"
+                >
+                  Sistema Solar (11)
+                </button>
+              </div>
+            </div>
+
+            <!-- Grilla Principal 12 Columnas: Escenario 3D (8 cols) + Inspector en Vivo (4 cols) -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+              <!-- Columna Izquierda/Central: Visor 3D + Controles + Selector de los 11 Modelos de assets/ -->
+              <div class="lg:col-span-8 space-y-4 min-w-0">
+                <!-- Barra de Controles de Cámara y Diagnóstico -->
+                <div class="nexus-card rounded-2xl bg-[#0b0b0d] border border-[#27272a] p-2.5 flex flex-wrap items-center justify-between gap-2">
+                  <div class="flex flex-wrap items-center gap-1">
+                    <button id="btn-cam-reset" type="button" class="studio-btn px-2.5 py-1 rounded-xl text-[11px] font-medium cursor-pointer">
+                      General
+                    </button>
+                    <button id="btn-cam-core" type="button" class="studio-btn px-2.5 py-1 rounded-xl text-[11px] font-medium cursor-pointer">
+                      Detalle
+                    </button>
+                    <button id="btn-cam-top" type="button" class="studio-btn px-2.5 py-1 rounded-xl text-[11px] font-medium cursor-pointer">
+                      Cenital
+                    </button>
+                    <button id="btn-cam-front" type="button" class="studio-btn px-2.5 py-1 rounded-xl text-[11px] font-medium cursor-pointer">
+                      Frontal
+                    </button>
+                    <button id="btn-cam-zoom-in" type="button" class="studio-btn num-mono px-2.5 py-1 rounded-xl text-[11px] font-bold cursor-pointer">
+                      +
+                    </button>
+                    <button id="btn-cam-zoom-out" type="button" class="studio-btn num-mono px-2.5 py-1 rounded-xl text-[11px] font-bold cursor-pointer">
+                      –
+                    </button>
+                    <button id="btn-cam-orbit" type="button" class="studio-btn-active px-2.5 py-1 rounded-xl text-[11px] font-semibold cursor-pointer">
+                      Rotación: ON
+                    </button>
+                  </div>
+
+                  <div class="flex flex-wrap items-center gap-1">
+                    <button id="btn-sim-vbus" type="button" class="studio-btn px-2.5 py-1 rounded-xl text-[11px] font-medium cursor-pointer">
+                      VBUS &lt;4.75V
+                    </button>
+                    <button id="btn-run-benchmark" type="button" class="studio-btn px-2.5 py-1 rounded-xl text-[11px] font-medium cursor-pointer">
+                      Benchmark
+                    </button>
+                    <button id="btn-demo-gamepad" type="button" class="studio-btn px-2.5 py-1 rounded-xl text-[11px] font-medium cursor-pointer">
+                      Demo Mando
+                    </button>
+                    <button id="btn-sim-drift" type="button" class="studio-btn px-2.5 py-1 rounded-xl text-[11px] font-medium cursor-pointer">
+                      Drift <span class="num-mono">&gt;0.08</span>
+                    </button>
+                    <button id="btn-reset-sim" type="button" class="studio-btn px-2.5 py-1 rounded-xl text-[11px] font-medium cursor-pointer">
+                      Reset
+                    </button>
+                    <button id="btn-scan-now" type="button" class="studio-btn px-2.5 py-1 rounded-xl text-[11px] font-semibold text-white cursor-pointer">
+                      Sincronizar
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Barra de Hotspots 3D de Enfoque Rápido para placa-madre.glb y procesador.glb -->
+                <div
+                  id="mobo-hotspots-bar"
+                  class="nexus-card rounded-2xl bg-[#0b0b0d] border border-[#27272a] p-2.5 flex flex-wrap items-center justify-between gap-2"
+                >
+                  <div class="flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-sky-400 glow-stable shrink-0"></span>
+                    <span class="text-[11px] font-bold uppercase tracking-wider text-zinc-200">
+                      Hotspots 3D Placa Madre &amp; CPU:
+                    </span>
+                  </div>
+                  <div class="flex flex-wrap items-center gap-1.5">
+                    <button
+                      type="button"
+                      data-mobo-hotspot="general"
+                      class="mobo-hotspot-btn studio-btn-active px-2.5 py-1 rounded-xl text-[11px] font-semibold cursor-pointer"
+                    >
+                      Vista General ATX
+                    </button>
+                    <button
+                      type="button"
+                      data-mobo-hotspot="vrm_cpu"
+                      class="mobo-hotspot-btn studio-btn px-2.5 py-1 rounded-xl text-[11px] font-medium cursor-pointer"
+                    >
+                      Zoom Fases VRM &amp; CPU
+                    </button>
+                    <button
+                      type="button"
+                      data-mobo-hotspot="ram_ddr4"
+                      class="mobo-hotspot-btn studio-btn px-2.5 py-1 rounded-xl text-[11px] font-medium cursor-pointer"
+                    >
+                      Bancos RAM DDR4
+                    </button>
+                    <button
+                      type="button"
+                      data-mobo-hotspot="m2_pcie"
+                      class="mobo-hotspot-btn studio-btn px-2.5 py-1 rounded-xl text-[11px] font-medium cursor-pointer"
+                    >
+                      Slot M.2 &amp; PCIe
+                    </button>
+                    <button
+                      type="button"
+                      data-mobo-hotspot="vbus_5v"
+                      class="mobo-hotspot-btn studio-btn px-2.5 py-1 rounded-xl text-[11px] font-medium cursor-pointer"
+                    >
+                      Puertos VBUS 5V
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Visor 3D del Laboratorio con gestos táctiles completos y alturas Mobile-First -->
+                <div class="relative rounded-3xl viewport-3d-frame overflow-hidden h-[280px] sm:h-[320px] md:h-[380px] lg:h-[460px] w-full bg-[#0b0b0d] border border-[#27272a]">
+                  <div
+                    id="lab-3d-viewport"
+                    class="w-full h-full relative touch-none"
+                    style="touch-action: none;"
+                  ></div>
+
+                  <!-- HUD Discreto sobre el Visor del Laboratorio -->
+                  <div class="absolute top-3 left-3 z-20 pointer-events-none flex flex-wrap items-center gap-1.5">
+                    <span
+                      id="lab-active-asset-pill"
+                      class="px-3 py-1 rounded-full bg-[#0c0c0e] border border-[#27272a] text-[10px] sm:text-[11px] font-semibold text-white num-mono break-words"
+                    >
+                      assets/placa-madre.glb
+                    </span>
+                    <span class="hidden sm:inline-block px-2.5 py-1 rounded-full bg-[#0c0c0e] border border-[#27272a] text-[10px] text-zinc-300 num-mono">
+                      ACESFilmic 0.82 · Anisotropía Máx
+                    </span>
+                  </div>
+
+                  <div class="absolute bottom-3 left-3 z-20 pointer-events-none hidden sm:block">
+                    <span class="px-3 py-1 rounded-full bg-[#0c0c0e] border border-[#27272a] text-[10px] text-zinc-400">
+                      Gestos táctiles / Mouse: rotar, pellizcar o usar rueda para zoom
+                    </span>
+                  </div>
+                </div>
+
+                <!-- Selector Directo de TODOS los Modelos Reales de assets/*.glb -->
+                <div class="nexus-card rounded-3xl bg-[#0b0b0d] border border-[#27272a] p-4 space-y-3">
+                  <div class="flex flex-wrap items-center justify-between gap-2">
+                    <div class="min-w-0">
+                      <h3 class="text-xs font-bold uppercase tracking-wider text-white">
+                        Catálogo Real <code class="num-mono">assets/*.glb</code> (GLTFLoader)
+                      </h3>
+                      <p class="text-[11px] text-zinc-400 break-words">
+                        Selecciona cualquier componente para inspeccionar su geometría PBR y telemetría asociada.
+                      </p>
+                    </div>
+                    <div class="flex flex-wrap items-center gap-2">
+                      <label
+                        for="toggle-sim-storage-telemetry"
+                        class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#050505] border border-[#27272a] text-[11px] text-zinc-200 cursor-pointer select-none"
+                        title="Activa este switch si deseas emular valores S.M.A.R.T. de prueba en los modelos 3D de referencia no montados"
+                      >
+                        <input
+                          id="toggle-sim-storage-telemetry"
+                          type="checkbox"
+                          class="accent-sky-400 w-3.5 h-3.5 cursor-pointer"
+                        />
+                        <span>Simular telemetría de prueba</span>
+                      </label>
+                      <button
+                        type="button"
+                        id="btn-usb-assembly-view"
+                        class="btn-pill-outline px-3.5 py-1.5 text-[11px] rounded-full"
+                      >
+                        Ver Ensamblaje USB (4 GLB)
+                      </button>
+                    </div>
+                  </div>
+
+                  <div
+                    id="minimal-devices-list"
+                    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2"
+                  >
+                    <!-- Poblado dinámicamente en src/main.js con los 11 modelos .glb reales -->
+                  </div>
+                </div>
+
+                <!-- Módulo de Diagnóstico de Pantalla & Panel (Hz Reales, Frame Time y Test de Píxeles Fullscreen) -->
+                <div
+                  id="lab-display-diagnostics-card"
+                  class="nexus-card rounded-3xl bg-[#0b0b0d] border border-[#27272a] p-4 sm:p-5 space-y-4"
+                >
+                  <div class="flex flex-wrap items-center justify-between gap-2 border-b border-[#27272a] pb-3">
+                    <div class="min-w-0">
+                      <div class="flex items-center gap-2">
+                        <span class="w-2.5 h-2.5 rounded-full bg-sky-400 glow-stable shrink-0"></span>
+                        <h3 class="text-sm sm:text-base font-bold text-white break-words">
+                          Diagnóstico de Pantalla &amp; Panel (Hz Reales &amp; Test de Píxeles)
+                        </h3>
+                      </div>
+                      <p class="text-[11px] text-zinc-400 mt-0.5 break-words">
+                        Telemetría óptica en tiempo real mediante deltas de <code class="num-mono text-zinc-200">requestAnimationFrame</code> y API de pantalla nativa.
+                      </p>
+                    </div>
+                    <span
+                      id="display-sync-badge"
+                      class="px-2.5 py-1 rounded-full bg-[#050505] border border-[#27272a] num-mono text-[10px] font-semibold text-emerald-300"
+                    >
+                      V-SYNC rAF ACTIVO
+                    </span>
+                  </div>
+
+                  <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2.5">
+                    <div class="p-3 rounded-2xl bg-[#050505] border border-[#27272a]">
+                      <span class="text-[10px] text-zinc-400 block">Frecuencia Real</span>
+                      <strong id="display-live-hz" class="num-mono text-base sm:text-lg font-extrabold text-sky-300 block mt-0.5">
+                        60 Hz
+                      </strong>
+                      <span class="text-[10px] text-zinc-500 num-mono">Delta rAF en vivo</span>
+                    </div>
+
+                    <div class="p-3 rounded-2xl bg-[#050505] border border-[#27272a]">
+                      <span class="text-[10px] text-zinc-400 block">Frame Time</span>
+                      <strong id="display-frame-time-ms" class="num-mono text-base sm:text-lg font-extrabold text-emerald-300 block mt-0.5">
+                        16.67 ms
+                      </strong>
+                      <span class="text-[10px] text-zinc-500 num-mono">Latencia por cuadro</span>
+                    </div>
+
+                    <div class="p-3 rounded-2xl bg-[#050505] border border-[#27272a]">
+                      <span class="text-[10px] text-zinc-400 block">Resolución Nativa</span>
+                      <strong id="display-native-res" class="num-mono text-sm sm:text-base font-bold text-white block mt-0.5">
+                        1920 × 1080
+                      </strong>
+                      <span id="display-dpr-note" class="text-[10px] text-zinc-500 num-mono">screen.width × height</span>
+                    </div>
+
+                    <div class="p-3 rounded-2xl bg-[#050505] border border-[#27272a]">
+                      <span class="text-[10px] text-zinc-400 block">Profundidad Color</span>
+                      <strong id="display-color-depth" class="num-mono text-sm sm:text-base font-bold text-white block mt-0.5">
+                        24-bit
+                      </strong>
+                      <span class="text-[10px] text-zinc-500 num-mono">screen.colorDepth</span>
+                    </div>
+
+                    <div class="p-3 rounded-2xl bg-[#050505] border border-[#27272a] col-span-2 sm:col-span-1">
+                      <span class="text-[10px] text-zinc-400 block">Relación de Aspecto</span>
+                      <strong id="display-aspect-ratio" class="num-mono text-sm sm:text-base font-bold text-zinc-200 block mt-0.5">
+                        16:9
+                      </strong>
+                      <span class="text-[10px] text-zinc-500 num-mono">Proporción Nativa</span>
+                    </div>
+                  </div>
+
+                  <div class="p-3 rounded-2xl bg-[#050505] border border-[#27272a] flex flex-wrap items-center justify-between gap-2 text-xs">
+                    <div class="flex items-center gap-2 min-w-0">
+                      <span class="text-zinc-400 shrink-0">Renderizador GPU (WebGL):</span>
+                      <strong id="display-webgl-gpu" class="num-mono text-white truncate">
+                        Detectando WEBGL_debug_renderer_info...
+                      </strong>
+                    </div>
+                    <div class="flex flex-wrap items-center gap-1.5">
+                      <span class="text-[10px] text-zinc-400">Patrones:</span>
+                      <span class="w-3 h-3 rounded-full bg-[#000000] border border-zinc-600" title="Negro puro (#000000)"></span>
+                      <span class="w-3 h-3 rounded-full bg-[#FFFFFF] border border-zinc-400" title="Blanco (#FFFFFF)"></span>
+                      <span class="w-3 h-3 rounded-full bg-[#FF0000]" title="Rojo (#FF0000)"></span>
+                      <span class="w-3 h-3 rounded-full bg-[#00FF00]" title="Verde (#00FF00)"></span>
+                      <span class="w-3 h-3 rounded-full bg-[#0000FF]" title="Azul (#0000FF)"></span>
+                      <span class="px-1.5 py-0.5 rounded bg-[#0c0c0e] border border-[#27272a] num-mono text-[9px] text-zinc-300">Rejilla</span>
+                    </div>
+                  </div>
+
+                  <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-1">
+                    <button
+                      id="btn-start-pixel-test"
+                      type="button"
+                      data-open-pixel-test="true"
+                      class="btn-pill-primary px-5 py-2.5 text-xs sm:text-sm rounded-full bg-[#ffffff] hover:bg-[#e4e4e7] text-[#050505] cursor-pointer flex-1"
+                    >
+                      <span>Iniciar Test de Píxeles Muertos y Fuga de Luz (Fullscreen)</span>
+                      <span class="pill-arrow">→</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Columna Derecha (<aside>): Inspector de Telemetría en Tiempo Real + Krom KLOUD + Logs SQL/Kernel -->
+              <aside class="lg:col-span-4 space-y-4 min-w-0">
+                <!-- Tarjeta de Inspección de Hardware Activo -->
+                <div id="device-floating-card" class="nexus-card rounded-3xl bg-[#0b0b0d] border border-[#27272a] p-5 space-y-3.5">
+                  <div class="h-1 w-full rounded-full bg-white/80"></div>
+
+                  <div class="flex items-start justify-between gap-2 pb-3 border-b border-[#27272a]">
+                    <div class="min-w-0">
+                      <div class="flex items-center gap-2">
+                        <span id="card-status-dot" class="w-2.5 h-2.5 rounded-full bg-sky-400 glow-stable shrink-0"></span>
+                        <h3 id="card-device-name" class="text-sm sm:text-base font-bold text-white truncate">
+                          Placa Madre ATX Principal
+                        </h3>
+                      </div>
+                      <p id="card-device-interface" class="text-xs font-medium text-zinc-300 mt-0.5 truncate">
+                        CORE • Arquitectura Base ATX
+                      </p>
+                    </div>
+
+                    <div class="flex items-center gap-1.5 shrink-0">
+                      <span
+                        id="card-live-badge"
+                        class="hidden px-2 py-0.5 rounded-full text-[9px] font-semibold bg-[#050505] text-white border border-[#27272a] items-center gap-1"
+                      >
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+                        <span class="num-mono">1500ms</span>
+                      </span>
+                      <span
+                        id="card-status-badge"
+                        class="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-[#050505] text-zinc-200 border border-[#27272a]"
+                      >
+                        ESTABLE
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="flex flex-wrap items-center justify-between gap-2 text-[11px] text-zinc-400 pb-2 border-b border-[#27272a]">
+                    <span id="card-device-id" class="num-mono break-words">ID: CORE-MOBO</span>
+                    <span id="card-port-id" class="num-mono text-zinc-300 break-words">Bus: PCIe 4.0 x16</span>
+                    <span
+                      id="card-glb-badge"
+                      class="num-mono px-2 py-0.5 rounded-md bg-[#050505] border border-[#27272a] text-[10px] text-white break-words"
+                    >
+                      placa-madre.glb
+                    </span>
+                  </div>
+
+                  <!-- Grilla 2x2 de Métricas Principales -->
+                  <div id="card-metrics-grid" class="grid grid-cols-2 gap-2.5"></div>
+
+                  <!-- Especificaciones Detalladas y Diagnóstico Eléctrico -->
+                  <div
+                    id="card-extra-specs"
+                    class="p-3 rounded-2xl bg-[#050505] border border-[#27272a] text-xs text-zinc-200 space-y-2 max-h-80 overflow-y-auto ag-scroll break-words"
+                  ></div>
+
+                  <!-- Referencia Visual Gamepad Krom KLOUD (assets/krom_kloud.png + navigator.getGamepads()) -->
+                  <div id="card-gamepad-visual" class="pt-3 border-t border-[#27272a] space-y-2">
+                    <div class="flex items-center justify-between gap-2">
+                      <span class="text-[10px] font-bold uppercase tracking-wider text-zinc-300 break-words">
+                        Krom KLOUD (NXKROMKLD) · krom_kloud.png
+                      </span>
+                      <span id="deadzone-verdict-badge" class="num-mono text-[10px] font-semibold text-emerald-400 shrink-0">
+                        Deadzone OK (≤0.08)
+                      </span>
+                    </div>
+
+                    <div
+                      id="gamepad-hologram-container"
+                      class="hologram-pad-wrapper relative w-full aspect-[16/10] max-h-[155px] mx-auto rounded-2xl overflow-hidden flex items-center justify-center border border-[#27272a]"
+                    >
+                      <img
+                        id="gamepad-hologram-img"
+                        data-krom-img="true"
+                        alt="Referencia visual Gamepad Inalámbrico Krom KLOUD NXKROMKLD"
+                        class="hologram-pad-img w-full h-full object-contain block pointer-events-none select-none"
+                      />
+                      <!-- Anillos Deadzone -->
+                      <div
+                        class="absolute w-7 h-7 -ml-3.5 -mt-3.5 rounded-full border border-white/40 pointer-events-none"
+                        style="left: 28.2%; top: 30.2%"
+                      ></div>
+                      <div
+                        class="absolute w-7 h-7 -ml-3.5 -mt-3.5 rounded-full border border-white/40 pointer-events-none"
+                        style="left: 61.4%; top: 41.6%"
+                      ></div>
+                      <!-- Nodos de Telemetría en Tiempo Real -->
+                      <div
+                        id="telemetry-node-lt"
+                        class="telemetry-node absolute w-2.5 h-2.5 -ml-1 -mt-1 rounded-full bg-white shadow-[0_0_10px_#ffffff] opacity-85 pointer-events-none"
+                        style="left: 31.5%; top: 19.2%"
+                      ></div>
+                      <div
+                        id="telemetry-node-rt"
+                        class="telemetry-node absolute w-2.5 h-2.5 -ml-1 -mt-1 rounded-full bg-white shadow-[0_0_10px_#ffffff] opacity-85 pointer-events-none"
+                        style="left: 68.5%; top: 19.2%"
+                      ></div>
+                      <div
+                        id="telemetry-node-ls"
+                        class="telemetry-node absolute w-3 h-3 -ml-1.5 -mt-1.5 rounded-full bg-sky-400 shadow-[0_0_10px_#38bdf8] ring-2 ring-white/40 pointer-events-none"
+                        style="left: 28.2%; top: 30.2%"
+                      ></div>
+                      <div
+                        id="telemetry-node-rs"
+                        class="telemetry-node absolute w-3 h-3 -ml-1.5 -mt-1.5 rounded-full bg-sky-400 shadow-[0_0_10px_#38bdf8] ring-2 ring-white/40 pointer-events-none"
+                        style="left: 61.4%; top: 41.6%"
+                      ></div>
+                    </div>
+
+                    <div class="flex items-center justify-between num-mono text-[10px] text-zinc-400">
+                      <span id="gamepad-axes-summary">L: 0.00, 0.00 | R: 0.00, 0.00</span>
+                      <span id="gamepad-triggers-summary">LT: 0.00 | RT: 0.00</span>
+                    </div>
+                  </div>
+
+                  <!-- Fila de Acciones Contextuales -->
+                  <div class="pt-3 border-t border-[#27272a] flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2">
+                    <button
+                      type="button"
+                      data-open-modal="modal-smart-json"
+                      class="btn-pill-outline px-3.5 py-1.5 text-xs rounded-full"
+                    >
+                      JSON S.M.A.R.T.
+                    </button>
+                    <button
+                      id="btn-card-action"
+                      type="button"
+                      class="btn-pill-primary px-4 py-1.5 text-xs rounded-full bg-[#ffffff] hover:bg-[#e4e4e7] text-[#050505]"
+                    >
+                      <span>Enfocar Modelo 3D</span>
+                      <span class="pill-arrow">→</span>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Monitor de Polling Rate HID (Mouse y Teclado en Vivo) -->
+                <div class="nexus-card rounded-2xl bg-[#0b0b0d] border border-[#27272a] p-4 space-y-2">
+                  <div class="flex items-center justify-between text-xs">
+                    <span class="font-semibold text-zinc-200">Telemetría HID Polling Rate</span>
+                    <span id="mouse-delta-ms" class="num-mono text-[10px] text-zinc-400">Δt: -- ms</span>
+                  </div>
+                  <div class="grid grid-cols-2 gap-2 text-xs">
+                    <div class="p-2.5 rounded-xl bg-[#050505] border border-[#27272a] flex items-center justify-between">
+                      <span class="text-zinc-400">Mouse:</span>
+                      <strong id="mouse-polling-hz" class="num-mono text-white">0 Hz</strong>
+                    </div>
+                    <div class="p-2.5 rounded-xl bg-[#050505] border border-[#27272a] flex items-center justify-between">
+                      <span class="text-zinc-400">Teclado:</span>
+                      <strong id="kb-polling-hz" class="num-mono text-white">0 Hz</strong>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Terminal Colapsable SQL (MariaDB) & Kernel (dmesg | tail) -->
+                <details id="kernel-log-drawer" class="nexus-card rounded-2xl bg-[#0b0b0d] border border-[#27272a] p-4 group" open>
+                  <summary class="flex items-center justify-between gap-2 cursor-pointer text-xs font-semibold text-zinc-200 min-h-[36px]">
+                    <div class="flex items-center gap-2">
+                      <span id="usb-panel-dot" class="w-2 h-2 rounded-full bg-sky-400 glow-stable"></span>
+                      <span>Consola SQL &amp; Kernel Ring</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <span id="terminal-last-sync" class="num-mono text-[10px] text-zinc-400">LIVE</span>
+                      <span class="text-zinc-300 group-open:rotate-180 transition-transform">▾</span>
+                    </div>
+                  </summary>
+
+                  <div class="mt-3 pt-2.5 border-t border-[#27272a] space-y-2">
+                    <div class="flex items-center justify-between">
+                      <span class="num-mono text-[10px] text-zinc-400">hal_nexus_db · dmesg</span>
+                      <div class="flex items-center gap-1">
+                        <button
+                          id="tab-logs-db"
+                          type="button"
+                          class="studio-btn-active px-2.5 py-0.5 rounded-lg text-[10px] font-semibold cursor-pointer"
+                        >
+                          SQL Logs
+                        </button>
+                        <button
+                          id="tab-logs-dmesg"
+                          type="button"
+                          class="studio-btn px-2.5 py-0.5 rounded-lg text-[10px] font-medium cursor-pointer"
+                        >
+                          dmesg | tail
+                        </button>
+                      </div>
+                    </div>
+
+                    <div
+                      id="terminal-output"
+                      class="ag-terminal-font h-36 overflow-y-auto ag-scroll p-2.5 rounded-xl bg-[#050505] border border-[#27272a] text-[11px] leading-relaxed space-y-1 break-words"
+                    ></div>
+                  </div>
+                </details>
+              </aside>
+            </div>
+          </div>
+        </section>
+
+        <!-- =================================================================== -->
+        <!-- SECCIÓN 4: BLOG (#blog) — TARJETAS NUMERADAS 1., 2., 3., 4.         -->
+        <!-- =================================================================== -->
+        <section id="blog" data-page-section="blog" class="hidden page-enter px-4 py-6 md:px-8 md:py-10">
+          <div class="max-w-7xl mx-auto space-y-8">
+            <!-- Breadcrumb -->
+            <div class="flex flex-wrap items-center justify-between gap-2 px-4 py-2.5 rounded-2xl bg-[#0b0b0d] border border-[#27272a] text-xs text-zinc-400">
+              <nav aria-label="Breadcrumb Blog" class="flex items-center gap-2">
+                <a href="#inicio" data-nav-page="inicio" class="hover:text-white transition">Home</a>
+                <span>•</span>
+                <span class="text-white font-semibold">Blog &amp; Casos de Estudio</span>
+              </nav>
+              <span class="num-mono text-[11px] break-words">4 Informes Técnicos Vinculados a Modelos Reales</span>
+            </div>
+
+            <!-- Cabecera + Pestañas de Filtrado del Blog -->
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+              <div class="min-w-0">
+                <span class="text-xs font-bold uppercase tracking-wider text-zinc-400">
+                  Documentación de Ingeniería &amp; Telemetría
+                </span>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-white mt-1 break-words">
+                  Casos de Estudio de Hardware Real
+                </h2>
+                <p class="text-sm text-zinc-400 mt-1 max-w-2xl break-words">
+                  Cada estudio técnico conecta directamente con su activo 3D en <code class="num-mono text-white">assets/</code> e incluye informe forense completo.
+                </p>
+              </div>
+
+              <div id="blog-tabs" class="flex flex-wrap items-center gap-2" role="tablist">
+                <button type="button" data-blog-tab="ALL" class="filter-tab-btn is-active px-3.5 py-1.5 text-xs font-semibold">
+                  Todos (4)
+                </button>
+                <button type="button" data-blog-tab="CORE_RAM" class="filter-tab-btn px-3.5 py-1.5 text-xs font-medium">
+                  Arquitectura &amp; RAM
+                </button>
+                <button type="button" data-blog-tab="STORAGE" class="filter-tab-btn px-3.5 py-1.5 text-xs font-medium">
+                  S.M.A.R.T. NVMe
+                </button>
+                <button type="button" data-blog-tab="USB_HID" class="filter-tab-btn px-3.5 py-1.5 text-xs font-medium">
+                  Buses USB &amp; Gamepad
+                </button>
+              </div>
+            </div>
+
+            <!-- Grilla de 4 Tarjetas Numeradas (1 col en móvil -> 2 cols en tablet md:grid-cols-2 y desktop) -->
+            <div id="blog-cards-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+              <!-- CASO 1. -->
+              <article
+                id="case-1"
+                data-blog-category="CORE_RAM"
+                class="nexus-card rounded-3xl bg-[#0b0b0d] border border-[#27272a] p-5 sm:p-7 flex flex-col justify-between gap-5"
+              >
+                <div class="space-y-5">
+                  <!-- Contenedor Superior con Vista Previa Técnica -->
+                  <div class="rounded-2xl bg-[#050505] border border-[#27272a] p-4 sm:p-5 space-y-3">
+                    <div class="flex flex-wrap items-center justify-between gap-2">
+                      <span class="px-2.5 py-1 rounded-full bg-[#0b0b0d] border border-[#27272a] text-white text-[11px] font-semibold num-mono">
+                        CASE #01 · ATX &amp; SILICIO
+                      </span>
+                      <span class="num-mono text-[11px] text-zinc-400 break-words">
+                        placa-madre.glb + procesador.glb
+                      </span>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 pt-1">
+                      <div class="p-2.5 rounded-xl bg-[#0b0b0d] border border-[#27272a]">
+                        <span class="text-[10px] text-zinc-400 block">Exposición 3D</span>
+                        <span class="num-mono text-xs font-bold text-white">ACES 0.82</span>
+                      </div>
+                      <div class="p-2.5 rounded-xl bg-[#0b0b0d] border border-[#27272a]">
+                        <span class="text-[10px] text-zinc-400 block">Ciclo Global</span>
+                        <span class="num-mono text-xs font-bold text-emerald-300">1500 ms</span>
+                      </div>
+                      <div class="p-2.5 rounded-xl bg-[#0b0b0d] border border-[#27272a]">
+                        <span class="text-[10px] text-zinc-400 block">Bus Gráfico</span>
+                        <span class="num-mono text-xs font-bold text-white">PCIe AER OK</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Dos Botones Píldora Requeridos -->
+                  <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+                    <button
+                      type="button"
+                      data-inspect-glb="placa-madre.glb"
+                      class="btn-pill-primary px-5 py-2.5 text-xs rounded-full bg-[#ffffff] hover:bg-[#e4e4e7] text-[#050505]"
+                    >
+                      <span>VIEW 3D MODEL / DEMO</span>
+                      <span class="pill-arrow">→</span>
+                    </button>
+                    <button
+                      type="button"
+                      data-read-case="1"
+                      class="btn-pill-outline px-5 py-2.5 text-xs rounded-full"
+                    >
+                      <span>LEER INFORME TÉCNICO ▸</span>
+                    </button>
+                  </div>
+
+                  <!-- Título Numerado, Enlace Interno, Párrafo y Lista con Viñetas -->
+                  <div class="space-y-3">
+                    <h3 class="text-lg sm:text-xl font-bold text-white break-words">
+                      1. Arquitectura Base ATX, Estabilidad VRM y Telemetría Multi-Core
+                    </h3>
+                    <a
+                      href="#laboratorio"
+                      data-inspect-glb="procesador.glb"
+                      class="inline-block text-xs font-semibold text-zinc-200 hover:text-white num-mono transition break-words"
+                    >
+                      → Inspeccionar assets/placa-madre.glb &amp; assets/procesador.glb en Laboratorio 3D
+                    </a>
+                    <p class="text-sm text-zinc-300 leading-relaxed break-words">
+                      Análisis integral del suministro de potencia entre fases VRM de la placa madre y el empaquetado del procesador, correlacionando temperaturas por núcleo con registros PCIe AER y ACPI del kernel.
+                    </p>
+                    <div class="pt-2">
+                      <h4 class="text-xs font-bold uppercase tracking-wider text-zinc-200 mb-2">
+                        Lo que puedes aprender de este módulo de hardware:
+                      </h4>
+                      <ul class="space-y-1.5 text-xs sm:text-sm text-zinc-300 list-disc pl-5">
+                        <li>Identificación visual de pistas de PCB y sockets con filtrado anisotrópico máximo.</li>
+                        <li>Broadcast compartido cada <code class="num-mono text-white">1500ms</code> sin saturar el hilo principal WebGL.</li>
+                        <li>Detección preventiva de <strong class="text-white">Thermal Throttling</strong> y eventos MCE por núcleo.</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </article>
+
+              <!-- CASO 2. -->
+              <article
+                id="case-2"
+                data-blog-category="CORE_RAM"
+                class="nexus-card rounded-3xl bg-[#0b0b0d] border border-[#27272a] p-5 sm:p-7 flex flex-col justify-between gap-5"
+              >
+                <div class="space-y-5">
+                  <!-- Contenedor Superior con Vista Previa Técnica -->
+                  <div class="rounded-2xl bg-[#050505] border border-[#27272a] p-4 sm:p-5 space-y-3">
+                    <div class="flex flex-wrap items-center justify-between gap-2">
+                      <span class="px-2.5 py-1 rounded-full bg-[#0b0b0d] border border-[#27272a] text-white text-[11px] font-semibold num-mono">
+                        CASE #02 · DUAL-CHANNEL
+                      </span>
+                      <span class="num-mono text-[11px] text-zinc-400 break-words">
+                        assets/ram.glb
+                      </span>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 pt-1">
+                      <div class="p-2.5 rounded-xl bg-[#0b0b0d] border border-[#27272a]">
+                        <span class="text-[10px] text-zinc-400 block">Capacidad Real</span>
+                        <span class="num-mono text-xs font-bold text-white">32GB (2x16)</span>
+                      </div>
+                      <div class="p-2.5 rounded-xl bg-[#0b0b0d] border border-[#27272a]">
+                        <span class="text-[10px] text-zinc-400 block">Frecuencia</span>
+                        <span class="num-mono text-xs font-bold text-white">3200 MHz</span>
+                      </div>
+                      <div class="p-2.5 rounded-xl bg-[#0b0b0d] border border-[#27272a]">
+                        <span class="text-[10px] text-zinc-400 block">Integridad</span>
+                        <span class="num-mono text-xs font-bold text-emerald-300">0 Err EDAC</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Dos Botones Píldora Requeridos -->
+                  <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+                    <button
+                      type="button"
+                      data-inspect-glb="ram.glb"
+                      class="btn-pill-primary px-5 py-2.5 text-xs rounded-full bg-[#ffffff] hover:bg-[#e4e4e7] text-[#050505]"
+                    >
+                      <span>VIEW 3D MODEL / DEMO</span>
+                      <span class="pill-arrow">→</span>
+                    </button>
+                    <button
+                      type="button"
+                      data-read-case="2"
+                      class="btn-pill-outline px-5 py-2.5 text-xs rounded-full"
+                    >
+                      <span>LEER INFORME TÉCNICO ▸</span>
+                    </button>
+                  </div>
+
+                  <!-- Título Numerado, Enlace Interno, Párrafo y Lista con Viñetas -->
+                  <div class="space-y-3">
+                    <h3 class="text-lg sm:text-xl font-bold text-white break-words">
+                      2. Rendimiento y Simetría en Memoria 32GB DDR4 3200MHz Dual-Channel
+                    </h3>
+                    <a
+                      href="#laboratorio"
+                      data-inspect-glb="ram.glb"
+                      class="inline-block text-xs font-semibold text-zinc-200 hover:text-white num-mono transition break-words"
+                    >
+                      → Inspeccionar assets/ram.glb (2x16GB Dual-Channel) en Laboratorio 3D
+                    </a>
+                    <p class="text-sm text-zinc-300 leading-relaxed break-words">
+                      Auditoría técnica del entorno real de 32GB DDR4 a 3200MHz distribuidos en dos módulos simétricos de 16GB, verificando ancho de banda efectivo, voltaje nominal y ausencia de corrupción en bancos físicos.
+                    </p>
+                    <div class="pt-2">
+                      <h4 class="text-xs font-bold uppercase tracking-wider text-zinc-200 mb-2">
+                        Lo que puedes aprender de este módulo de hardware:
+                      </h4>
+                      <ul class="space-y-1.5 text-xs sm:text-sm text-zinc-300 list-disc pl-5">
+                        <li>Mapeo de ranuras físicas ocupadas (<code class="num-mono text-white">BANK 0 / BANK 1</code>) y números de parte OEM.</li>
+                        <li>Impacto del entrelazado Dual-Channel a <code class="num-mono text-white">3200MHz</code> en cargas WebGL y bases de datos.</li>
+                        <li>Auditoría de subsistema EDAC para descartar fallos silenciosos de paridad.</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </article>
+
+              <!-- CASO 3. -->
+              <article
+                id="case-3"
+                data-blog-category="STORAGE"
+                class="nexus-card rounded-3xl bg-[#0b0b0d] border border-[#27272a] p-5 sm:p-7 flex flex-col justify-between gap-5"
+              >
+                <div class="space-y-5">
+                  <!-- Contenedor Superior con Vista Previa Técnica -->
+                  <div class="rounded-2xl bg-[#050505] border border-[#27272a] p-4 sm:p-5 space-y-3">
+                    <div class="flex flex-wrap items-center justify-between gap-2">
+                      <span class="px-2.5 py-1 rounded-full bg-[#0b0b0d] border border-[#27272a] text-white text-[11px] font-semibold num-mono">
+                        CASE #03 · S.M.A.R.T. STORAGE
+                      </span>
+                      <span class="num-mono text-[11px] text-zinc-400 break-words">
+                        ssd970evo · ssd-corsair · hdd
+                      </span>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 pt-1">
+                      <div class="p-2.5 rounded-xl bg-[#0b0b0d] border border-[#27272a]">
+                        <span class="text-[10px] text-zinc-400 block">Estado Salud</span>
+                        <span class="num-mono text-xs font-bold text-emerald-300">PASSED 100%</span>
+                      </div>
+                      <div class="p-2.5 rounded-xl bg-[#0b0b0d] border border-[#27272a]">
+                        <span class="text-[10px] text-zinc-400 block">Sectores / CRC</span>
+                        <span class="num-mono text-xs font-bold text-white">0 Reasignados</span>
+                      </div>
+                      <div class="p-2.5 rounded-xl bg-[#0b0b0d] border border-[#27272a]">
+                        <span class="text-[10px] text-zinc-400 block">Protocolo</span>
+                        <span class="num-mono text-xs font-bold text-white">NVMe &amp; SATA</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Dos Botones Píldora Requeridos -->
+                  <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+                    <button
+                      type="button"
+                      data-inspect-glb="ssd970evo.glb"
+                      class="btn-pill-primary px-5 py-2.5 text-xs rounded-full bg-[#ffffff] hover:bg-[#e4e4e7] text-[#050505]"
+                    >
+                      <span>VIEW 3D MODEL / DEMO</span>
+                      <span class="pill-arrow">→</span>
+                    </button>
+                    <button
+                      type="button"
+                      data-read-case="3"
+                      class="btn-pill-outline px-5 py-2.5 text-xs rounded-full"
+                    >
+                      <span>LEER INFORME TÉCNICO ▸</span>
+                    </button>
+                  </div>
+
+                  <!-- Título Numerado, Enlace Interno, Párrafo y Lista con Viñetas -->
+                  <div class="space-y-3">
+                    <h3 class="text-lg sm:text-xl font-bold text-white break-words">
+                      3. Diagnóstico Forense S.M.A.R.T. en Unidades NVMe M.2 y Discos Mecánicos
+                    </h3>
+                    <a
+                      href="#laboratorio"
+                      data-inspect-glb="ssd-corsair.glb"
+                      class="inline-block text-xs font-semibold text-zinc-200 hover:text-white num-mono transition break-words"
+                    >
+                      → Inspeccionar ssd970evo.glb, ssd-corsair.glb y hdd.glb en Laboratorio 3D
+                    </a>
+                    <p class="text-sm text-zinc-300 leading-relaxed break-words">
+                      Comparativa forense entre almacenamiento sólido NVMe de alto desempeño (Samsung 970 EVO y Corsair MP600) frente a medios rotacionales SATA, analizando vida útil NAND, temperatura bajo carga y exportación JSON.
+                    </p>
+                    <div class="pt-2">
+                      <h4 class="text-xs font-bold uppercase tracking-wider text-zinc-200 mb-2">
+                        Lo que puedes aprender de este módulo de hardware:
+                      </h4>
+                      <ul class="space-y-1.5 text-xs sm:text-sm text-zinc-300 list-disc pl-5">
+                        <li>Interpretación de atributos críticos: <code class="num-mono text-white">Percentage Used</code>, <code class="num-mono text-white">Power On Hours</code> y <code class="num-mono text-white">Unsafe Shutdowns</code>.</li>
+                        <li>Diferencias térmicas entre unidades NVMe con disipador pasivo y PCB expuesto.</li>
+                        <li>Generación de reportes JSON auditables en un clic para respaldo técnico.</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </article>
+
+              <!-- CASO 4. -->
+              <article
+                id="case-4"
+                data-blog-category="USB_HID"
+                class="nexus-card rounded-3xl bg-[#0b0b0d] border border-[#27272a] p-5 sm:p-7 flex flex-col justify-between gap-5"
+              >
+                <div class="space-y-5">
+                  <!-- Contenedor Superior con Vista Previa Técnica -->
+                  <div class="rounded-2xl bg-[#050505] border border-[#27272a] p-4 sm:p-5 space-y-3">
+                    <div class="flex flex-wrap items-center justify-between gap-2">
+                      <span class="px-2.5 py-1 rounded-full bg-[#0b0b0d] border border-[#27272a] text-white text-[11px] font-semibold num-mono">
+                        CASE #04 · USB &amp; KROM KLOUD
+                      </span>
+                      <span class="num-mono text-[11px] text-zinc-400 break-words">
+                        usb*.glb · .5.glb · krom_kloud.png
+                      </span>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 pt-1">
+                      <div class="p-2.5 rounded-xl bg-[#0b0b0d] border border-[#27272a]">
+                        <span class="text-[10px] text-zinc-400 block">Tensión VBUS</span>
+                        <span class="num-mono text-xs font-bold text-white">5.00V Nominal</span>
+                      </div>
+                      <div class="p-2.5 rounded-xl bg-[#0b0b0d] border border-[#27272a]">
+                        <span class="text-[10px] text-zinc-400 block">Umbral Drift</span>
+                        <span class="num-mono text-xs font-bold text-rose-300">&gt; 0.08 Rad</span>
+                      </div>
+                      <div class="p-2.5 rounded-xl bg-[#0b0b0d] border border-[#27272a]">
+                        <span class="text-[10px] text-zinc-400 block">Mando Real</span>
+                        <span class="num-mono text-xs font-bold text-white">NXKROMKLD</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Dos Botones Píldora Requeridos -->
+                  <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+                    <button
+                      type="button"
+                      data-inspect-glb="xbox_360_joystick_3d_scan.glb"
+                      class="btn-pill-primary px-5 py-2.5 text-xs rounded-full bg-[#ffffff] hover:bg-[#e4e4e7] text-[#050505]"
+                    >
+                      <span>VIEW 3D MODEL / DEMO</span>
+                      <span class="pill-arrow">→</span>
+                    </button>
+                    <button
+                      type="button"
+                      data-read-case="4"
+                      class="btn-pill-outline px-5 py-2.5 text-xs rounded-full"
+                    >
+                      <span>LEER INFORME TÉCNICO ▸</span>
+                    </button>
+                  </div>
+
+                  <!-- Título Numerado, Enlace Interno, Párrafo y Lista con Viñetas -->
+                  <div class="space-y-3">
+                    <h3 class="text-lg sm:text-xl font-bold text-white break-words">
+                      4. Ensamblaje de Buses USB y Detección de Stick Drift en Gamepad Krom KLOUD
+                    </h3>
+                    <a
+                      href="#laboratorio"
+                      data-inspect-glb="usbport.glb"
+                      class="inline-block text-xs font-semibold text-zinc-200 hover:text-white num-mono transition break-words"
+                    >
+                      → Inspeccionar usbport.glb, usbflash.glb, usbbodyplug.glb, .5.glb y Joystick 3D
+                    </a>
+                    <p class="text-sm text-zinc-300 leading-relaxed break-words">
+                      Estudio de estabilidad eléctrica en puertos USB ante caídas de voltaje (&lt; 4.75V) y diagnóstico de potenciómetros analógicos en el mando inalámbrico <strong class="text-white">Krom KLOUD (NXKROMKLD)</strong> usando la API nativa de Gamepad.
+                    </p>
+                    <div class="pt-2">
+                      <h4 class="text-xs font-bold uppercase tracking-wider text-zinc-200 mb-2">
+                        Lo que puedes aprender de este módulo de hardware:
+                      </h4>
+                      <ul class="space-y-1.5 text-xs sm:text-sm text-zinc-300 list-disc pl-5">
+                        <li>Despiece 3D completo del ensamblaje USB (<code class="num-mono text-white">usbport</code>, <code class="num-mono text-white">usbflash</code>, <code class="num-mono text-white">usbbodyplug</code> y <code class="num-mono text-white">.5.glb</code>).</li>
+                        <li>Medición de jitter en milisegundos y frecuencia de muestreo HID en vivo.</li>
+                        <li>Superposición holográfica sobre <code class="num-mono text-white">krom_kloud.png</code> para aislar deriva en reposo &gt; <code class="num-mono">0.08</code>.</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <!-- =================================================================== -->
+        <!-- SECCIÓN 5: NOSOTROS (#nosotros) — TARJETA DE AUTORÍA KEVIN BAHAMONDE -->
+        <!-- =================================================================== -->
+        <section id="nosotros" data-page-section="nosotros" class="hidden page-enter px-4 py-6 md:px-8 md:py-10">
+          <div class="max-w-7xl mx-auto space-y-8">
+            <!-- Breadcrumb -->
+            <div class="flex flex-wrap items-center justify-between gap-2 px-4 py-2.5 rounded-2xl bg-[#0b0b0d] border border-[#27272a] text-xs text-zinc-400">
+              <nav aria-label="Breadcrumb Nosotros" class="flex items-center gap-2">
+                <a href="#inicio" data-nav-page="inicio" class="hover:text-white transition">Home</a>
+                <span>•</span>
+                <span class="text-white font-semibold">Nosotros</span>
+              </nav>
+              <span class="num-mono text-[11px] break-words">HAL-Nexus | Plataforma de Telemetría y Diagnóstico de Hardware 3D</span>
+            </div>
+
+            <!-- Tarjeta Destacada de Autoría e Ingeniería -->
+            <div class="nexus-card rounded-3xl bg-[#0b0b0d] border border-[#27272a] p-5 sm:p-8 lg:p-10 relative overflow-hidden">
+              <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <!-- Columna Avatar KB + Insignias Flotantes -->
+                <div class="lg:col-span-5 flex flex-col items-center text-center space-y-4 p-5 sm:p-6 rounded-3xl bg-[#050505] border border-[#27272a] relative min-w-0">
+                  <div class="flex flex-wrap justify-center gap-2">
+                    <span class="px-3 py-1 rounded-full bg-[#0b0b0d] border border-[#27272a] text-[11px] font-semibold text-white num-mono">
+                      Full-Stack &amp; 3D Web
+                    </span>
+                    <span class="px-3 py-1 rounded-full bg-[#0b0b0d] border border-[#27272a] text-[11px] font-semibold text-emerald-300 num-mono">
+                      Producción v2.5
+                    </span>
+                  </div>
+
+                  <!-- Avatar con Iniciales KB -->
+                  <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-3xl bg-[#18181b] border border-[#27272a] p-[2px] shadow-2xl">
+                    <div class="w-full h-full rounded-[22px] bg-[#050505] flex items-center justify-center">
+                      <span class="num-mono text-2xl sm:text-3xl font-extrabold text-white">
+                        KB
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="min-w-0">
+                    <h2 class="text-xl sm:text-2xl font-extrabold text-white break-words">
+                      Kevin Alexis Bahamonde Cárdenas
+                    </h2>
+                    <p class="text-xs sm:text-sm text-zinc-300 font-medium mt-1 break-words">
+                      Técnico en Informática · Desarrollador Full-Stack &amp; 3D Web
+                    </p>
+                  </div>
+
+                  <!-- Correo Oficial + Copiado en 1 Clic -->
+                  <div class="w-full p-3 rounded-2xl bg-[#0b0b0d] border border-[#27272a] flex flex-wrap items-center justify-between gap-2">
+                    <a
+                      href="mailto:alexis.bahamonde172@gmail.com"
+                      class="num-mono text-xs text-zinc-200 hover:text-white break-words"
+                    >
+                      alexis.bahamonde172@gmail.com
+                    </a>
+                    <button
+                      type="button"
+                      data-copy-email="alexis.bahamonde172@gmail.com"
+                      class="px-3 py-1.5 rounded-full bg-[#ffffff] hover:bg-[#e4e4e7] text-[11px] font-bold text-[#050505] cursor-pointer"
+                    >
+                      Copiar
+                    </button>
+                  </div>
+
+                  <div class="flex flex-wrap justify-center gap-2 pt-1">
+                    <span class="px-2.5 py-1 rounded-full bg-[#0b0b0d] border border-[#27272a] text-[10px] text-zinc-300 num-mono">
+                      32GB DDR4 3200MHz
+                    </span>
+                    <span class="px-2.5 py-1 rounded-full bg-[#0b0b0d] border border-[#27272a] text-[10px] text-zinc-300 num-mono">
+                      S.M.A.R.T. NVMe
+                    </span>
+                    <span class="px-2.5 py-1 rounded-full bg-[#0b0b0d] border border-[#27272a] text-[10px] text-zinc-300 num-mono">
+                      Krom KLOUD NXKROMKLD
+                    </span>
+                  </div>
+                </div>
+
+                <!-- Columna Bio, Arquitectura del Sistema y Contacto Directo -->
+                <div class="lg:col-span-7 space-y-5 min-w-0">
+                  <span class="inline-block px-3 py-1 rounded-full bg-[#050505] border border-[#27272a] text-zinc-200 text-[11px] font-semibold uppercase tracking-wider">
+                    Autor Oficial &amp; Arquitecto del Sistema
+                  </span>
+
+                  <h3 class="text-2xl sm:text-3xl font-extrabold text-white leading-tight break-words">
+                    Ingeniería de Diagnóstico Real Unificada con Visualización WebGL de Alta Nitidez
+                  </h3>
+
+                  <p class="text-sm sm:text-base text-zinc-300 leading-relaxed break-words">
+                    <strong class="text-white">HAL-Nexus | Plataforma de Telemetría y Diagnóstico de Hardware 3D</strong> fue diseñada y desarrollada por <strong class="text-white">Kevin Alexis Bahamonde Cárdenas</strong> como una plataforma profesional en producción de telemetría forense y monitoreo de hardware, integrando activos tridimensionales reales (<code class="num-mono text-white">assets/*.glb</code>) con lectura directa de sensores del sistema en tiempo real.
+                  </p>
+
+                  <!-- Especificaciones del Entorno Real del Autor -->
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5 pt-1">
+                    <div class="p-4 rounded-2xl bg-[#050505] border border-[#27272a]">
+                      <span class="text-[11px] font-bold uppercase tracking-wider text-zinc-400 block">
+                        Memoria Física del Entorno
+                      </span>
+                      <span class="text-sm font-bold text-white mt-1 block">
+                        32GB DDR4 3200MHz Dual-Channel
+                      </span>
+                      <span class="text-xs text-zinc-400">Configuración simétrica 2x16GB verificada</span>
+                    </div>
+
+                    <div class="p-4 rounded-2xl bg-[#050505] border border-[#27272a]">
+                      <span class="text-[11px] font-bold uppercase tracking-wider text-zinc-400 block">
+                        Almacenamiento Auditado
+                      </span>
+                      <span class="text-sm font-bold text-white mt-1 block">
+                        Unidades NVMe / SSD S.M.A.R.T.
+                      </span>
+                      <span class="text-xs text-zinc-400">Monitoreo térmico, CRC y horas de uso</span>
+                    </div>
+
+                    <div class="p-4 rounded-2xl bg-[#050505] border border-[#27272a]">
+                      <span class="text-[11px] font-bold uppercase tracking-wider text-zinc-400 block">
+                        Topología de Periféricos
+                      </span>
+                      <span class="text-sm font-bold text-white mt-1 block">
+                        Buses USB &amp; VBUS Mapeados
+                      </span>
+                      <span class="text-xs text-zinc-400">Control de subtensión &lt; 4.75V y Hot-Plug</span>
+                    </div>
+
+                    <div class="p-4 rounded-2xl bg-[#050505] border border-[#27272a]">
+                      <span class="text-[11px] font-bold uppercase tracking-wider text-zinc-400 block">
+                        Controlador HID Inalámbrico
+                      </span>
+                      <span class="text-sm font-bold text-white mt-1 block">
+                        Gamepad Krom KLOUD (NXKROMKLD)
+                      </span>
+                      <span class="text-xs text-zinc-400">Auditoría de Deadzone y Stick Drift &gt; 0.08</span>
+                    </div>
+                  </div>
+
+                  <div class="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3 pt-2">
+                    <a
+                      href="#contacto"
+                      data-nav-page="contacto"
+                      class="btn-pill-primary px-6 py-2.5 text-xs sm:text-sm rounded-full bg-[#ffffff] hover:bg-[#e4e4e7] text-[#050505]"
+                    >
+                      <span>CONTACTAR / GENERAR TICKET</span>
+                      <span class="pill-arrow">→</span>
+                    </a>
+
+                    <a
+                      href="mailto:alexis.bahamonde172@gmail.com?subject=%5BHAL-Nexus%5D%20Contacto%20Directo%20-%20Kevin%20Alexis%20Bahamonde"
+                      class="btn-pill-outline px-5 py-2.5 text-xs sm:text-sm rounded-full"
+                    >
+                      <span>Correo por App (mailto:)</span>
+                    </a>
+
+                    <a
+                      href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=alexis.bahamonde172@gmail.com&amp;su=%5BHAL-Nexus%5D%20Contacto%20Directo%20-%20Kevin%20Alexis%20Bahamonde"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="btn-pill-outline px-5 py-2.5 text-xs sm:text-sm rounded-full"
+                    >
+                      <span>Abrir en Gmail Web ↗</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- =================================================================== -->
+        <!-- SECCIÓN 6: CONTACTO (#contacto) — CORREO REAL + DESPACHO DUAL       -->
+        <!-- =================================================================== -->
+        <section id="contacto" data-page-section="contacto" class="hidden page-enter px-4 py-6 md:px-8 md:py-10">
+          <div class="max-w-7xl mx-auto space-y-8">
+            <!-- Breadcrumb -->
+            <div class="flex flex-wrap items-center justify-between gap-2 px-4 py-2.5 rounded-2xl bg-[#0b0b0d] border border-[#27272a] text-xs text-zinc-400">
+              <nav aria-label="Breadcrumb Contacto" class="flex items-center gap-2">
+                <a href="#inicio" data-nav-page="inicio" class="hover:text-white transition">Home</a>
+                <span>•</span>
+                <span class="text-white font-semibold">Contacto &amp; Soporte Técnico</span>
+              </nav>
+              <span class="num-mono text-[11px] break-words">Despacho Dual (App mailto: &amp; Gmail Web) a alexis.bahamonde172@gmail.com</span>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+              <!-- Columna Izquierda: Tarjeta con Correo Oficial, Copiado en 1 Clic y Redirección Dual -->
+              <div class="lg:col-span-5 space-y-5 min-w-0">
+                <div class="nexus-card rounded-3xl bg-[#0b0b0d] border border-[#27272a] p-5 sm:p-7 space-y-5">
+                  <span class="inline-block px-3 py-1 rounded-full bg-[#050505] border border-[#27272a] text-zinc-200 text-[11px] font-semibold uppercase tracking-wider">
+                    Canal Oficial del Autor
+                  </span>
+
+                  <div>
+                    <h2 class="text-2xl font-extrabold text-white break-words">
+                      Contacto Directo &amp; Despacho de Tickets
+                    </h2>
+                    <p class="text-sm text-zinc-300 mt-2 leading-relaxed break-words">
+                      Comunícate directamente con <strong class="text-white">Kevin Alexis Bahamonde Cárdenas</strong> para soporte técnico de producción, reportes de telemetría S.M.A.R.T. o diagnóstico de hardware.
+                    </p>
+                  </div>
+
+                  <!-- Tarjeta de Correo con Copiado en 1 Clic + Redirección Dual App mailto: y Gmail Web -->
+                  <div class="p-4 rounded-2xl bg-[#050505] border border-[#27272a] space-y-3">
+                    <span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 block">
+                      Correo Electrónico Oficial
+                    </span>
+                    <div class="num-mono text-sm sm:text-base font-bold text-white break-words">
+                      alexis.bahamonde172@gmail.com
+                    </div>
+                    <div class="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-2 pt-1">
+                      <button
+                        type="button"
+                        data-copy-email="alexis.bahamonde172@gmail.com"
+                        class="btn-pill-primary px-4 py-2 text-xs rounded-full bg-[#ffffff] hover:bg-[#e4e4e7] text-[#050505]"
+                      >
+                        <span>Copiar Correo en 1 Clic</span>
+                        <span class="pill-arrow">→</span>
+                      </button>
+                      <a
+                        href="mailto:alexis.bahamonde172@gmail.com?subject=%5BHAL-Nexus%5D%20Soporte%20T%C3%A9cnico%203D"
+                        class="btn-pill-outline px-4 py-2 text-xs rounded-full"
+                      >
+                        App Correo (mailto:)
+                      </a>
+                      <a
+                        href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=alexis.bahamonde172@gmail.com&amp;su=%5BHAL-Nexus%5D%20Soporte%20T%C3%A9cnico%203D"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="btn-pill-outline px-4 py-2 text-xs rounded-full"
+                      >
+                        Gmail Web ↗
+                      </a>
+                    </div>
+                  </div>
+
+                  <!-- Resumen de Entorno para Tickets -->
+                  <div class="p-4 rounded-2xl bg-[#050505] border border-[#27272a] space-y-2 text-xs text-zinc-300">
+                    <div class="flex flex-wrap items-center justify-between gap-2">
+                      <span class="text-zinc-400">Responsable:</span>
+                      <span class="font-semibold text-white break-words">Kevin Alexis Bahamonde Cárdenas</span>
+                    </div>
+                    <div class="flex flex-wrap items-center justify-between gap-2">
+                      <span class="text-zinc-400">Especialidad:</span>
+                      <span class="text-zinc-200 break-words">Técnico en Informática · Full-Stack 3D</span>
+                    </div>
+                    <div class="flex flex-wrap items-center justify-between gap-2">
+                      <span class="text-zinc-400">Canales de Envío:</span>
+                      <span class="num-mono text-white">App mailto: &amp; Gmail Web</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Columna Derecha: Formulario Generador de Tickets Técnicos (Con Sanitización XSS, Honeypot y Cooldown 15s) -->
+              <div class="lg:col-span-7 min-w-0">
+                <form
+                  id="technical-ticket-form"
+                  novalidate
+                  class="nexus-card rounded-3xl bg-[#0b0b0d] border border-[#27272a] p-5 sm:p-8 space-y-5"
+                >
+                  <div class="border-b border-[#27272a] pb-4">
+                    <h3 class="text-xl font-bold text-white break-words">
+                      Generador de Ticket Técnico HAL-Nexus
+                    </h3>
+                    <p class="text-xs text-zinc-400 mt-1 break-words">
+                      Valida y sanitiza todos los campos, con redirección dual por <strong class="text-zinc-200">App de Correo (mailto:)</strong> o <strong class="text-zinc-200">Gmail Web</strong> hacia <span class="num-mono text-white break-words">alexis.bahamonde172@gmail.com</span>.
+                    </p>
+                  </div>
+
+                  <!-- Campo Honeypot Oculto Anti-Bots -->
+                  <div class="hidden" aria-hidden="true" style="display: none !important">
+                    <label for="ticket-honeypot">No completar este campo</label>
+                    <input
+                      id="ticket-honeypot"
+                      name="website_honeypot"
+                      type="text"
+                      tabindex="-1"
+                      autocomplete="off"
+                    />
+                  </div>
+
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Campo 1: Nombre -->
+                    <div>
+                      <label for="ticket-name" class="block text-xs font-semibold text-zinc-200 mb-1.5">
+                        Nombre completo <span class="text-white">*</span>
+                      </label>
+                      <input
+                        id="ticket-name"
+                        name="nombre"
+                        type="text"
+                        required
+                        maxlength="80"
+                        placeholder="Ej. Ing. Carlos Mendoza / Operaciones"
+                        class="w-full min-h-[44px] px-4 py-2.5 rounded-xl bg-[#050505] border border-[#27272a] text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-white transition"
+                      />
+                      <p id="err-ticket-name" class="hidden text-[11px] text-rose-400 mt-1">
+                        Ingresa tu nombre (mínimo 2 caracteres).
+                      </p>
+                    </div>
+
+                    <!-- Campo 2: Correo Remitente -->
+                    <div>
+                      <label for="ticket-email" class="block text-xs font-semibold text-zinc-200 mb-1.5">
+                        Correo remitente <span class="text-white">*</span>
+                      </label>
+                      <input
+                        id="ticket-email"
+                        name="correo"
+                        type="email"
+                        required
+                        maxlength="120"
+                        placeholder="contacto@empresa.com"
+                        class="w-full min-h-[44px] px-4 py-2.5 rounded-xl bg-[#050505] border border-[#27272a] text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-white transition"
+                      />
+                      <p id="err-ticket-email" class="hidden text-[11px] text-rose-400 mt-1">
+                        Ingresa un correo electrónico válido.
+                      </p>
+                    </div>
+                  </div>
+
+                  <!-- Campo 3: Módulo de Hardware -->
+                  <div>
+                    <label for="ticket-module" class="block text-xs font-semibold text-zinc-200 mb-1.5">
+                      Módulo de Hardware <span class="text-white">*</span>
+                    </label>
+                    <select
+                      id="ticket-module"
+                      name="modulo"
+                      required
+                      class="w-full min-h-[44px] px-4 py-2.5 rounded-xl bg-[#050505] border border-[#27272a] text-sm text-white focus:outline-none focus:border-white transition"
+                    >
+                      <option value="">Selecciona el módulo de hardware a reportar...</option>
+                      <option value="Arquitectura Base & Placa Madre (placa-madre.glb)">
+                        1. Arquitectura Base &amp; Placa Madre (placa-madre.glb)
+                      </option>
+                      <option value="Procesador Central & Térmica (procesador.glb)">
+                        2. Procesador Central &amp; Térmica (procesador.glb)
+                      </option>
+                      <option value="Memoria RAM 32GB DDR4 Dual-Channel (ram.glb)">
+                        3. Memoria RAM 32GB DDR4 3200MHz Dual-Channel (ram.glb)
+                      </option>
+                      <option value="Almacenamiento S.M.A.R.T. (ssd970evo.glb / ssd-corsair.glb / hdd.glb)">
+                        4. Almacenamiento S.M.A.R.T. (ssd970evo.glb / ssd-corsair.glb / hdd.glb)
+                      </option>
+                      <option value="Ensamblaje Buses USB & VBUS (usbport.glb / usbflash.glb / .5.glb)">
+                        5. Ensamblaje Buses USB &amp; VBUS (usbport.glb / usbflash.glb / .5.glb)
+                      </option>
+                      <option value="Gamepad Krom KLOUD & Stick Drift (NXKROMKLD)">
+                        6. Gamepad Krom KLOUD (NXKROMKLD) &amp; Stick Drift (xbox_360_joystick_3d_scan.glb)
+                      </option>
+                      <option value="Diagnóstico de Pantalla & Panel (Hz Reales & Test de Píxeles)">
+                        7. Diagnóstico de Pantalla &amp; Panel (Hz Reales &amp; Test de Píxeles)
+                      </option>
+                      <option value="Auditoría Integral de Plataforma & Telemetría 3D">
+                        8. Auditoría Integral de Plataforma &amp; Telemetría 3D
+                      </option>
+                    </select>
+                    <p id="err-ticket-module" class="hidden text-[11px] text-rose-400 mt-1">
+                      Selecciona un módulo de hardware de la lista.
+                    </p>
+                  </div>
+
+                  <!-- Campo 4: Mensaje Técnico -->
+                  <div>
+                    <label for="ticket-message" class="block text-xs font-semibold text-zinc-200 mb-1.5">
+                      Mensaje / Observaciones de Telemetría <span class="text-white">*</span>
+                    </label>
+                    <textarea
+                      id="ticket-message"
+                      name="mensaje"
+                      rows="4"
+                      required
+                      maxlength="1200"
+                      placeholder="Describe el diagnóstico observado, anomalía eléctrica, reporte S.M.A.R.T. o requerimiento técnico..."
+                      class="w-full px-4 py-2.5 rounded-xl bg-[#050505] border border-[#27272a] text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-white transition resize-y"
+                    ></textarea>
+                    <p id="err-ticket-message" class="hidden text-[11px] text-rose-400 mt-1">
+                      Escribe un mensaje descriptivo (mínimo 10 caracteres).
+                    </p>
+                  </div>
+
+                  <!-- Confirmación de Despacho Generado con Redirección Dual -->
+                  <div
+                    id="ticket-dispatch-result"
+                    class="hidden p-4 rounded-2xl bg-[#050505] border border-emerald-500/40 text-xs text-emerald-200 space-y-2.5"
+                  >
+                    <div class="font-bold text-emerald-300 break-words">
+                      ✓ Ticket validado y preparado hacia alexis.bahamonde172@gmail.com
+                    </div>
+                    <p id="ticket-dispatch-summary" class="text-zinc-300 break-words"></p>
+                    <div class="flex flex-wrap items-center gap-3 pt-1">
+                      <a
+                        id="ticket-fallback-mailto"
+                        href="mailto:alexis.bahamonde172@gmail.com"
+                        class="inline-block num-mono text-white underline hover:text-zinc-300"
+                      >
+                        Abrir en App de Correo (mailto:) →
+                      </a>
+                      <a
+                        id="ticket-fallback-gmail"
+                        href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=alexis.bahamonde172@gmail.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="inline-block num-mono text-zinc-200 underline hover:text-white"
+                      >
+                        Abrir en Gmail Web ↗
+                      </a>
+                    </div>
+                  </div>
+
+                  <div class="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center justify-between gap-3 pt-2">
+                    <span id="ticket-cooldown-status" class="text-[11px] text-zinc-400 break-words">
+                      Destino: <strong class="num-mono text-zinc-200">alexis.bahamonde172@gmail.com</strong>
+                    </span>
+                    <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5">
+                      <button
+                        type="button"
+                        id="btn-submit-gmail"
+                        data-mail-channel="gmail"
+                        class="btn-pill-outline w-full sm:w-auto px-5 py-3 text-xs sm:text-sm rounded-full cursor-pointer"
+                      >
+                        <span>ENVIAR POR GMAIL WEB ↗</span>
+                      </button>
+                      <button
+                        type="submit"
+                        id="btn-submit-mailto"
+                        data-mail-channel="mailto"
+                        class="btn-pill-primary w-full sm:w-auto px-6 py-3 text-xs sm:text-sm rounded-full bg-[#ffffff] hover:bg-[#e4e4e7] text-[#050505] cursor-pointer"
+                      >
+                        <span>DESPACHAR TICKET (APP CORREO)</span>
+                        <span class="pill-arrow">→</span>
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <!-- FOOTER SEMÁNTICO CON NAVEGACIÓN A LAS 6 SECCIONES, MODALES Y AUTORÍA OFICIAL -->
+      <footer class="mt-12 bg-[#0c0c0e] border-t border-[#27272a] text-zinc-400 text-xs">
+        <div class="max-w-7xl mx-auto px-4 md:px-8 py-10 space-y-8">
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <!-- Columna 1: Identidad HAL-Nexus -->
+            <div class="space-y-3">
+              <div class="flex items-center gap-2">
+                <span class="w-7 h-7 rounded-lg bg-[#0b0b0d] border border-[#27272a] flex items-center justify-center text-white font-bold num-mono">
+                  HN
+                </span>
+                <span class="text-sm font-bold text-white">HAL-Nexus</span>
+              </div>
+              <p class="leading-relaxed text-zinc-400 break-words">
+                HAL-Nexus | Plataforma de Telemetría y Diagnóstico de Hardware 3D con estética Monolith Carbon, activos <code class="num-mono text-white">.glb</code> reales y exposición atenuada <code class="num-mono">0.82</code>.
+              </p>
+            </div>
+
+            <!-- Columna 2: Mapa de las 6 Secciones -->
+            <div class="space-y-2.5">
+              <h3 class="text-[11px] font-bold uppercase tracking-wider text-zinc-200">
+                Navegación (6 Secciones)
+              </h3>
+              <ul class="grid grid-cols-2 gap-1.5">
+                <li><a href="#inicio" data-nav-page="inicio" class="hover:text-white transition">1. Inicio</a></li>
+                <li><a href="#servicios" data-nav-page="servicios" class="hover:text-white transition">2. Servicios</a></li>
+                <li><a href="#laboratorio" data-nav-page="laboratorio" class="hover:text-white transition">3. Laboratorio 3D</a></li>
+                <li><a href="#blog" data-nav-page="blog" class="hover:text-white transition">4. Blog</a></li>
+                <li><a href="#nosotros" data-nav-page="nosotros" class="hover:text-white transition">5. Nosotros</a></li>
+                <li><a href="#contacto" data-nav-page="contacto" class="hover:text-white transition">6. Contacto</a></li>
+              </ul>
+            </div>
+
+            <!-- Columna 3: Herramientas Dinámicas & Modales -->
+            <div class="space-y-2.5">
+              <h3 class="text-[11px] font-bold uppercase tracking-wider text-zinc-200">
+                Herramientas Interactivas
+              </h3>
+              <ul class="space-y-1.5">
+                <li>
+                  <button type="button" data-open-modal="modal-smart-json" class="hover:text-white transition cursor-pointer">
+                    • Modal Escáner JSON S.M.A.R.T.
+                  </button>
+                </li>
+                <li>
+                  <button type="button" data-read-case="1" class="hover:text-white transition cursor-pointer">
+                    • Modal Lector de Casos Técnicos
+                  </button>
+                </li>
+                <li>
+                  <a href="#laboratorio" data-nav-page="laboratorio" class="hover:text-white transition cursor-pointer">
+                    • Inspector 3D en Tiempo Real
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Columna 4: Autoría Oficial y Correo Directo -->
+            <div class="space-y-2.5 min-w-0">
+              <h3 class="text-[11px] font-bold uppercase tracking-wider text-zinc-200">
+                Autoría &amp; Contacto Oficial
+              </h3>
+              <p class="text-zinc-200 font-semibold break-words">Kevin Alexis Bahamonde Cárdenas</p>
+              <p class="text-[11px] text-zinc-400">Técnico en Informática · Full-Stack &amp; 3D Web</p>
+              <div class="flex flex-wrap items-center gap-2 pt-1">
+                <a
+                  href="mailto:alexis.bahamonde172@gmail.com"
+                  class="num-mono text-white hover:text-zinc-300 underline break-words"
+                >
+                  alexis.bahamonde172@gmail.com
+                </a>
+                <a
+                  href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=alexis.bahamonde172@gmail.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="px-2 py-0.5 rounded-full bg-[#0b0b0d] hover:bg-[#18181b] border border-[#27272a] text-[10px] text-zinc-200"
+                >
+                  Gmail Web ↗
+                </a>
+                <button
+                  type="button"
+                  data-copy-email="alexis.bahamonde172@gmail.com"
+                  class="px-2 py-0.5 rounded-full bg-[#ffffff] hover:bg-[#e4e4e7] text-[10px] font-bold text-[#050505] cursor-pointer"
+                >
+                  Copiar
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-6 border-t border-[#27272a] flex flex-wrap items-center justify-between gap-3 text-[11px]">
+            <span class="break-words">
+              © 2026 HAL-Nexus | Plataforma de Telemetría y Diagnóstico de Hardware 3D · Desarrollada por <strong class="text-zinc-200">Kevin Alexis Bahamonde Cárdenas</strong> (<a href="mailto:alexis.bahamonde172@gmail.com" class="text-white hover:underline break-words">alexis.bahamonde172@gmail.com</a>)
+            </span>
+            <span class="num-mono text-zinc-500">
+              Three.js GLTFLoader · Tailwind CSS · Socket.IO · MariaDB
+            </span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- MODALES INTERACTIVOS 100% OPACOS (#0c0c0e, border #27272a, z-index 999) -->
+    <!-- ===================================================================== -->
+
+    <!-- MODAL 1: ESCANEO Y EXPORTACIÓN JSON S.M.A.R.T. -->
+    <div
+      id="modal-smart-json"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modal-smart-title"
+      class="fixed inset-0 z-[999] hidden items-center justify-center p-4 bg-black/85 overflow-x-hidden"
+    >
+      <div class="dropdown-menu modal-surface rounded-3xl max-w-2xl w-full p-5 sm:p-6 space-y-4 bg-[#0c0c0e] border border-[#27272a] shadow-[0_20px_40px_rgba(0,0,0,0.95)] max-h-[90vh] overflow-y-auto ag-scroll">
+        <div class="flex items-start justify-between gap-3 border-b border-[#27272a] pb-3">
+          <div class="min-w-0">
+            <span class="num-mono text-[10px] font-bold uppercase tracking-wider text-zinc-400">
+              EXPORTACIÓN FORENSE EN TIEMPO REAL
+            </span>
+            <h3 id="modal-smart-title" class="text-lg font-bold text-white break-words">
+              Reporte JSON S.M.A.R.T. &amp; Telemetría del Sistema
+            </h3>
+          </div>
+          <button
+            type="button"
+            data-close-modal="modal-smart-json"
+            class="studio-btn min-w-[40px] min-h-[40px] w-10 h-10 rounded-full text-xs cursor-pointer shrink-0"
+          >
+            ✕
+          </button>
+        </div>
+
+        <pre
+          id="smart-json-output"
+          class="ag-terminal-font text-[11px] text-zinc-200 bg-[#050505] border border-[#27272a] rounded-2xl p-4 max-h-80 overflow-auto ag-scroll select-all break-words"
+        ></pre>
+
+        <div class="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-[#27272a] text-xs">
+          <div class="text-zinc-400 break-words">
+            Autor: <strong class="text-zinc-200">Kevin Alexis Bahamonde Cárdenas</strong> ·
+            <a href="mailto:alexis.bahamonde172@gmail.com" class="num-mono text-white hover:underline break-words">
+              alexis.bahamonde172@gmail.com
+            </a>
+          </div>
+          <div class="flex flex-wrap items-center gap-2">
+            <button type="button" id="btn-copy-json" class="btn-pill-outline px-4 py-2 text-xs rounded-full">
+              Copiar JSON
+            </button>
+            <button type="button" id="btn-download-json" class="btn-pill-primary px-4 py-2 text-xs rounded-full bg-[#ffffff] hover:bg-[#e4e4e7] text-[#050505]">
+              <span>Descargar .JSON</span>
+              <span class="pill-arrow">→</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL 2: LECTOR DE CASOS DE ESTUDIO E INFORMES TÉCNICOS -->
+    <div
+      id="modal-case-reader"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modal-case-title"
+      class="fixed inset-0 z-[999] hidden items-center justify-center p-4 bg-black/85 overflow-x-hidden"
+    >
+      <div class="dropdown-menu modal-surface rounded-3xl max-w-2xl w-full p-5 sm:p-6 space-y-4 bg-[#0c0c0e] border border-[#27272a] shadow-[0_20px_40px_rgba(0,0,0,0.95)] max-h-[90vh] overflow-y-auto ag-scroll">
+        <div class="flex items-start justify-between gap-3 border-b border-[#27272a] pb-3">
+          <div class="min-w-0">
+            <span id="modal-case-badge" class="num-mono text-[10px] font-bold uppercase tracking-wider text-zinc-400">
+              INFORME TÉCNICO #01
+            </span>
+            <h3 id="modal-case-title" class="text-lg sm:text-xl font-bold text-white mt-0.5 break-words">
+              Informe Técnico de Hardware
+            </h3>
+          </div>
+          <button
+            type="button"
+            data-close-modal="modal-case-reader"
+            class="studio-btn min-w-[40px] min-h-[40px] w-10 h-10 rounded-full text-xs cursor-pointer shrink-0"
+          >
+            ✕
+          </button>
+        </div>
+
+        <div id="modal-case-body" class="text-sm text-zinc-300 leading-relaxed space-y-3 break-words"></div>
+
+        <div class="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-[#27272a]">
+          <button
+            type="button"
+            data-close-modal="modal-case-reader"
+            class="btn-pill-outline px-4 py-2 text-xs rounded-full"
+          >
+            Cerrar Lector
+          </button>
+          <button
+            type="button"
+            id="modal-case-inspect-btn"
+            class="btn-pill-primary px-5 py-2 text-xs rounded-full bg-[#ffffff] hover:bg-[#e4e4e7] text-[#050505]"
+          >
+            <span>VIEW 3D MODEL / DEMO</span>
+            <span class="pill-arrow">→</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- LIENZO A PANTALLA COMPLETA: TEST DE PÍXELES MUERTOS, SUBPÍXELES Y FUGA DE LUZ (BACKLIGHT BLEED) -->
+    <div
+      id="fullscreen-pixel-test-overlay"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Test de Píxeles Muertos y Fuga de Luz a Pantalla Completa"
+      class="fixed inset-0 z-[9999] hidden flex-col justify-between bg-[#000000] select-none overflow-hidden"
+    >
+      <canvas
+        id="pixel-test-canvas"
+        class="w-full h-full block cursor-pointer"
+        title="Haz clic o usa las flechas / barra espaciadora para cambiar de patrón · ESC para salir"
+      ></canvas>
+
+      <!-- Barra de Control Flotante en el Test de Píxeles -->
+      <div
+        id="pixel-test-hud"
+        class="fixed bottom-5 left-1/2 -translate-x-1/2 z-[10000] w-[94vw] max-w-3xl rounded-2xl bg-[#0c0c0e] border border-[#27272a] shadow-[0_20px_40px_rgba(0,0,0,0.95)] px-4 py-3 flex flex-wrap items-center justify-between gap-2.5"
+      >
+        <div class="flex items-center gap-2.5 min-w-0">
+          <span id="pixel-test-swatch" class="w-4 h-4 rounded-full border border-white/40 bg-[#000000] shrink-0"></span>
+          <div class="min-w-0">
+            <span id="pixel-test-mode-label" class="num-mono text-xs font-bold text-white block truncate">
+              1/6 · Negro Puro (#000000) — Fuga de Luz / Hot Pixels
+            </span>
+            <span class="text-[10px] text-zinc-400 block">
+              Haz clic en el lienzo o presiona Espacio / Flechas para alternar · ESC para cerrar
+            </span>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-1.5">
+          <button type="button" data-pixel-pattern="0" class="pixel-pattern-btn studio-btn-active px-2.5 py-1 rounded-xl text-[10px] num-mono cursor-pointer">
+            #000000
+          </button>
+          <button type="button" data-pixel-pattern="1" class="pixel-pattern-btn studio-btn px-2.5 py-1 rounded-xl text-[10px] num-mono cursor-pointer">
+            #FFFFFF
+          </button>
+          <button type="button" data-pixel-pattern="2" class="pixel-pattern-btn studio-btn px-2.5 py-1 rounded-xl text-[10px] num-mono cursor-pointer">
+            #FF0000
+          </button>
+          <button type="button" data-pixel-pattern="3" class="pixel-pattern-btn studio-btn px-2.5 py-1 rounded-xl text-[10px] num-mono cursor-pointer">
+            #00FF00
+          </button>
+          <button type="button" data-pixel-pattern="4" class="pixel-pattern-btn studio-btn px-2.5 py-1 rounded-xl text-[10px] num-mono cursor-pointer">
+            #0000FF
+          </button>
+          <button type="button" data-pixel-pattern="5" class="pixel-pattern-btn studio-btn px-2.5 py-1 rounded-xl text-[10px] num-mono cursor-pointer">
+            Rejilla
+          </button>
+          <button
+            id="btn-exit-pixel-test"
+            type="button"
+            class="px-3 py-1 rounded-xl bg-[#ffffff] hover:bg-[#e4e4e7] text-[#050505] text-[11px] font-bold cursor-pointer ml-1"
+          >
+            Salir (ESC) ✕
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTENEDOR DE NOTIFICACIONES VISUALES (TOAST) -->
+    <div
+      id="toast-container"
+      aria-live="polite"
+      class="fixed bottom-5 right-5 z-[1000] flex flex-col gap-2 pointer-events-none max-w-[92vw]"
+    ></div>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

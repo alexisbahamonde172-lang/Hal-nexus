@@ -1,0 +1,423 @@
+@import "tailwindcss";
+
+:root {
+  --bg-space: #050505;
+  --bg-card: #0b0b0d;
+  --bg-opaque-menu: #0c0c0e;
+  --border-titanium: #27272a;
+  --btn-titanium-white: #ffffff;
+  --btn-ice-silver: #e4e4e7;
+  --accent-sky: #38bdf8;
+  --accent-pink: #f472b6;
+  --ag-stable: #38bdf8;
+  --ag-ok-green: #10b981;
+  --ag-warning: #f59e0b;
+  --ag-critical: #f43f5e;
+  --font-sans: 'Inter', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body,
+main {
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100vw;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: #050505;
+  color: #f4f4f5;
+  font-family: var(--font-sans);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  overflow-y: auto;
+  background-color: #050505;
+  color: #f4f4f5;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Lienzo espacial 3D fijo en el fondo Monolith Carbon (#050505) con estrellas sutiles */
+#canvas-container {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  max-width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+  background-color: #050505;
+  overflow: hidden;
+}
+
+#canvas-container canvas {
+  display: block;
+  width: 100% !important;
+  max-width: 100vw !important;
+  height: 100vh !important;
+  outline: none;
+}
+
+/* Montura interactiva reutilizable: pan-y en Hero para scroll con el pulgar, controles táctiles completos en Laboratorio 3D */
+#interactive-3d-mount,
+#hero-3d-viewport,
+#hero-3d-viewport #interactive-3d-mount,
+#hero-3d-viewport canvas {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  touch-action: pan-y !important;
+  user-select: none;
+}
+
+#lab-3d-viewport,
+#lab-3d-viewport #interactive-3d-mount,
+#lab-3d-viewport canvas {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  touch-action: none !important;
+  user-select: none;
+}
+
+/* Tipografía monoespaciada para telemetría, frecuencias, voltajes y logs SQL/Kernel */
+.num-mono,
+.ag-terminal-font {
+  font-family: var(--font-mono) !important;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" on, "zero" on;
+}
+
+/* Header y menús desplegables 100% sólidos y opacos (#0c0c0e) con borde titanio (#27272a) y z-index: 999 */
+#site-header {
+  position: sticky;
+  top: 0;
+  z-index: 999 !important;
+  background-color: #0c0c0e !important;
+  border-bottom: 1px solid #27272a !important;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.95);
+}
+
+.dropdown-menu,
+#mobile-nav-drawer,
+.modal-surface {
+  background-color: #0c0c0e !important;
+  border: 1px solid #27272a !important;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.95) !important;
+  z-index: 999 !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* Superficies y tarjetas Monolith Carbon: grafito oscuro (#0b0b0d) y bordes titanio (#27272a) */
+.nexus-surface {
+  background-color: #0c0c0e;
+  border: 1px solid #27272a;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.95);
+}
+
+.nexus-card {
+  background-color: #0b0b0d;
+  border: 1px solid #27272a;
+  box-shadow: 0 16px 36px -14px rgba(0, 0, 0, 0.88);
+  transition:
+    border-color 0.22s ease,
+    transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.22s ease,
+    background-color 0.22s ease;
+}
+
+.nexus-card:hover {
+  border-color: #3f3f46;
+  box-shadow: 0 20px 42px -14px rgba(0, 0, 0, 0.95);
+}
+
+/* Marco para el visor 3D (SIN backdrop-blur para mantener 100% de nitidez en texturas GLB) */
+.viewport-3d-frame {
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(255, 255, 255, 0.03) 0%,
+    rgba(5, 5, 5, 0.32) 100%
+  );
+  border: 1px solid #27272a;
+  box-shadow:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.05),
+    0 22px 48px -18px rgba(0, 0, 0, 0.92);
+}
+
+/* Botón Píldora Primario Monolith Carbon (.btn-pill-primary): Blanco Titanio (#ffffff) con hover Plata Hielo (#e4e4e7) */
+.btn-pill-primary {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  border-radius: 9999px;
+  background-color: #ffffff;
+  color: #050505;
+  font-weight: 700;
+  border: 1px solid #ffffff;
+  box-shadow: 0 10px 24px -8px rgba(255, 255, 255, 0.22);
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+.btn-pill-primary:hover {
+  background-color: #e4e4e7;
+  border-color: #e4e4e7;
+  color: #050505;
+  transform: translateY(-1px);
+  box-shadow: 0 14px 28px -8px rgba(228, 228, 231, 0.3);
+}
+
+.btn-pill-primary .pill-arrow {
+  display: inline-block;
+  transition: transform 0.22s ease;
+}
+
+.btn-pill-primary:hover .pill-arrow {
+  transform: translateX(3px);
+}
+
+/* Botón Píldora Secundario Monolith Carbon (.btn-pill-outline): Grafito (#0b0b0d) con borde titanio (#27272a) */
+.btn-pill-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  border-radius: 9999px;
+  background-color: #0b0b0d;
+  border: 1px solid #27272a;
+  color: #f4f4f5;
+  font-weight: 600;
+  transition:
+    border-color 0.2s ease,
+    color 0.2s ease,
+    background-color 0.2s ease,
+    transform 0.2s ease;
+  cursor: pointer;
+}
+
+.btn-pill-outline:hover {
+  border-color: #e4e4e7;
+  background-color: #18181b;
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+/* Navegación superior minimalista y estado activo */
+.nav-link-pill {
+  border-radius: 9999px;
+  color: #d4d4d8;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.nav-link-pill:hover {
+  background-color: #18181b;
+  color: #ffffff;
+}
+
+.nav-link-pill.is-active {
+  background-color: #ffffff;
+  color: #050505;
+  font-weight: 700;
+}
+
+/* Menús desplegables (Dropdowns) con animación de opacidad y escala, 100% opacos */
+.nav-dropdown-panel {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(6px) scale(0.97);
+  transform-origin: top left;
+  pointer-events: none;
+  z-index: 999 !important;
+  transition:
+    opacity 0.18s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.18s cubic-bezier(0.16, 1, 0.3, 1),
+    visibility 0.18s ease;
+}
+
+.nav-dropdown-wrapper:hover .nav-dropdown-panel,
+.nav-dropdown-wrapper:focus-within .nav-dropdown-panel,
+.nav-dropdown-wrapper.is-open .nav-dropdown-panel {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+/* Pestañas (Tabs) minimalistas de filtrado en Monolith Carbon */
+.filter-tab-btn {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background-color: #0b0b0d;
+  border: 1px solid #27272a;
+  color: #a1a1aa;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.filter-tab-btn:hover {
+  border-color: #52525b;
+  color: #ffffff;
+  background-color: #18181b;
+}
+
+.filter-tab-btn.is-active {
+  background-color: #ffffff;
+  border-color: #ffffff;
+  color: #050505;
+  font-weight: 700;
+}
+
+/* Botones compactos de barra de herramientas en Laboratorio 3D */
+.studio-btn {
+  min-height: 40px;
+  background-color: #0b0b0d;
+  border: 1px solid #27272a;
+  color: #e4e4e7;
+  transition: all 0.2s ease;
+}
+
+.studio-btn:hover {
+  background-color: #18181b;
+  border-color: #71717a;
+  color: #ffffff;
+}
+
+.studio-btn-active {
+  min-height: 40px;
+  background-color: #ffffff;
+  border: 1px solid #ffffff;
+  color: #050505;
+  font-weight: 700;
+}
+
+/* Tarjetas selectoras de modelos .glb en Laboratorio 3D */
+.glb-selector-card {
+  min-height: 48px;
+  background-color: #0b0b0d;
+  border: 1px solid #27272a;
+  transition: all 0.2s ease;
+}
+
+.glb-selector-card:hover {
+  border-color: #52525b;
+  background-color: #141417;
+}
+
+.glb-selector-card.is-selected {
+  border-color: #ffffff;
+  background-color: #18181b;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.25);
+}
+
+/* Animación suave de cambio entre las 6 páginas UI/UX */
+.page-enter {
+  animation: nexusFadeIn 0.26s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes nexusFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Referencia visual 2D krom_kloud.png en el módulo Gamepad & Drift */
+.hologram-pad-wrapper {
+  position: relative;
+  background: radial-gradient(
+    circle at 50% 45%,
+    rgba(255, 255, 255, 0.06) 0%,
+    rgba(5, 5, 5, 0.95) 75%
+  );
+}
+
+.hologram-pad-img {
+  filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.16)) contrast(1.03);
+  transition: filter 0.25s ease;
+}
+
+.hologram-pad-img.drift-alert {
+  filter: drop-shadow(0 0 16px rgba(244, 63, 94, 0.65)) contrast(1.06);
+}
+
+.telemetry-node {
+  will-change: transform;
+  transition: background-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+/* Acordeones nativos y personalizados sin marcador por defecto */
+details > summary {
+  list-style: none;
+}
+
+details > summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Scrollbars estilizadas discretas */
+.ag-scroll::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+.ag-scroll::-webkit-scrollbar-track {
+  background: #050505;
+}
+
+.ag-scroll::-webkit-scrollbar-thumb {
+  background: #27272a;
+  border-radius: 9999px;
+}
+
+.ag-scroll::-webkit-scrollbar-thumb:hover {
+  background: #52525b;
+}
+
+/* Indicadores discretos de estado */
+.glow-stable {
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.65);
+}
+
+.glow-ok-green {
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.7);
+}
+
+.glow-warning {
+  box-shadow: 0 0 10px rgba(245, 158, 11, 0.75);
+}
+
+.glow-critical {
+  box-shadow: 0 0 14px rgba(244, 63, 94, 0.85);
+}
