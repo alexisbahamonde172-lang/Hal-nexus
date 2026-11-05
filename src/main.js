@@ -1,4 +1,3 @@
-import './style.css';
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
@@ -168,7 +167,7 @@ const STATUS_COLORS = {
 document.querySelectorAll('[data-krom-img]').forEach(imgEl => {
   imgEl.onerror = () => {
     imgEl.onerror = null;
-    imgEl.src = '/assets/krom_kloud.png';
+    imgEl.src = './public/assets/krom_kloud.png';
   };
   imgEl.src = ASSET_URLS['krom_kloud.png'];
 });
@@ -980,6 +979,10 @@ function getCandidateUrlsForAsset(assetFile) {
   if (assetFile === '.5.glb' || assetFile === '2.5.glb') {
     return [
       ASSET_URLS['2.5.glb'],
+      './src/assets/2.5.glb',
+      './src/assets/.5.glb',
+      './assets/2.5.glb',
+      './assets/.5.glb',
       '/src/assets/.5.glb',
       '/assets/.5.glb',
       '/src/assets/2.5.glb',
@@ -988,6 +991,8 @@ function getCandidateUrlsForAsset(assetFile) {
   }
   return [
     ASSET_URLS[assetFile],
+    `./src/assets/${assetFile}`,
+    `./assets/${assetFile}`,
     `/src/assets/${assetFile}`,
     `/assets/${assetFile}`
   ].filter(Boolean);

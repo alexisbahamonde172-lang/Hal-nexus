@@ -11,6 +11,19 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="./src/style.css" />
+
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.186.1/build/three.module.js",
+          "three/examples/jsm/": "https://cdn.jsdelivr.net/npm/three@0.186.1/examples/jsm/",
+          "gsap": "https://cdn.jsdelivr.net/npm/gsap@3.15.0/index.js",
+          "socket.io-client": "https://cdn.jsdelivr.net/npm/socket.io-client@4.8.4/dist/socket.io.esm.min.js",
+          "./node_modules/socket.io/client-dist/socket.io.esm.min.js": "https://cdn.jsdelivr.net/npm/socket.io-client@4.8.4/dist/socket.io.esm.min.js"
+        }
+      }
+    </script>
   </head>
 
   <body class="overflow-x-hidden w-full max-w-[100vw] bg-[#050505] text-zinc-100 antialiased selection:bg-white/20 selection:text-white">
@@ -1503,6 +1516,7 @@
                     >
                       <img
                         id="gamepad-hologram-img"
+                        src="./src/assets/krom_kloud.png"
                         data-krom-img="true"
                         alt="Referencia visual Gamepad Inalámbrico Krom KLOUD NXKROMKLD"
                         class="hologram-pad-img w-full h-full object-contain block pointer-events-none select-none"
@@ -2715,6 +2729,6 @@
       class="fixed bottom-5 right-5 z-[1000] flex flex-col gap-2 pointer-events-none max-w-[92vw]"
     ></div>
 
-    <script type="module" src="/src/main.js"></script>
+    <script type="module" src="./src/main.js"></script>
   </body>
 </html>
